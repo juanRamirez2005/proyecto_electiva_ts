@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gestión de Pedidos</title>
+    <link rel="stylesheet" href="despacho_style.css" />
 </head>
 
 <body>
@@ -13,6 +14,48 @@
         <a href="../recepcion_pedido/recepcion.html">Recepción</a>
         <a href="../procesamiento_pedido/procesamiento.html">Procesamiento</a>
     </nav>
+    <h1>Lista de Pedidos</h1>
+    <div class="pedido-lista">
+        <div class="pedido">
+            <div class="pedido-info">
+                <span><strong>Pedido #001</strong></span>
+                <span class="etiqueta pendiente">Pendiente</span>
+            </div>
+            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
+        </div>
+
+        <div class="pedido">
+            <div class="pedido-info">
+                <span><strong>Pedido #002</strong></span>
+                <span class="etiqueta proceso">En proceso</span>
+            </div>
+            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
+        </div>
+
+        <div class="pedido">
+            <div class="pedido-info">
+                <span><strong>Pedido #003</strong></span>
+                <span class="etiqueta entregado">Entregado</span>
+            </div>
+            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
+        </div>
+    </div>
+
+    <script>
+        function cambiarEtiqueta(boton) {
+            const etiqueta = boton.parentElement.querySelector(".etiqueta");
+            if (etiqueta.classList.contains("pendiente")) {
+                etiqueta.className = "etiqueta proceso";
+                etiqueta.textContent = "En proceso";
+            } else if (etiqueta.classList.contains("proceso")) {
+                etiqueta.className = "etiqueta entregado";
+                etiqueta.textContent = "Entregado";
+            } else {
+                etiqueta.className = "etiqueta pendiente";
+                etiqueta.textContent = "Pendiente";
+            }
+        }
+    </script>
 </body>
 
 </html>
