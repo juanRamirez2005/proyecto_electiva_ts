@@ -1,342 +1,294 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema de Pedidos</title>
-    <link rel="stylesheet" href="recepcion.css" />
-    <link rel="icon" href="./icono.jpeg" type="svg/x-icon">
-  </head>
-  <body>
-    <div class="page-container">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-left">
-          <span class="logo">📦</span>
-          <h1>Sistema de Pedidos</h1>
-        </div>
-        <div class="header-actions">
-          <button class="btn secondary">📑 Generar Reporte</button>
-          <button class="btn secondary">➕ Nuevo Pedido</button>
-        </div>
-      </header>
 
-      <!-- Main -->
-      <main class="main">
-        <div class="container" role="main">
-          <h1>Formulario de Pedido</h1>
-          <p class="lead">
-            Completa los datos del cliente, pedido y destinatario. Los campos
-            marcados son obligatorios.
-          </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Pedidos</title>
+  <link rel="stylesheet" href="recepcion.css" />
+  <!-- <link rel="icon" href="./icono.jpeg" type="svg/x-icon"> -->
+</head>
 
-          <form id="orderForm" novalidate>
-            <!-- SECCIÓN CLIENTE -->
-            <section class="section" aria-labelledby="clienteTitle">
-              <h2 id="clienteTitle">1. Datos del Cliente</h2>
-              <div class="grid">
-                <div class="field-row">
-                  <label for="clienteNombre">Nombre completo *</label>
-                  <input
-                    id="clienteNombre"
-                    name="clienteNombre"
-                    type="text"
-                    required
-                    autocomplete="name"
-                  />
-                  <div
-                    class="error"
-                    id="err-clienteNombre"
-                    aria-live="polite"
-                  ></div>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <span class="logo">📦</span>
+        <h1>Sistema de Pedidos</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn secondary">📑 Generar Reporte</button>
+        <button class="btn secondary">➕ Nuevo Pedido</button>
+      </div>
+    </header>
+
+      <nav class="navation">
+        <a href="../index.html">Home</a>
+        <a href="../procesamiento_pedido/procesamiento.html">Procesamiento</a>
+        <a href="../despacho_pedido/despacho.html">Despacho</a>
+      </nav>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="container" role="main">
+        <h1>Formulario de Pedido</h1>
+        <p class="lead">
+          Completa los datos del cliente, pedido y destinatario. Los campos
+          marcados son obligatorios.
+        </p>
+
+        <form id="orderForm" novalidate>
+          <!-- SECCIÓN CLIENTE -->
+          <section class="section" aria-labelledby="clienteTitle">
+            <h2 id="clienteTitle">1. Datos del Cliente</h2>
+            <div class="grid">
+              <div class="field-row">
+                <label for="clienteNombre">Nombre completo *</label>
+                <input id="clienteNombre" name="clienteNombre" type="text" required autocomplete="name" />
+                <div class="error" id="err-clienteNombre" aria-live="polite"></div>
+              </div>
+
+              <div class="field-row">
+                <label for="clienteTelefono">Teléfono *</label>
+                <input id="clienteTelefono" name="clienteTelefono" type="tel" inputmode="tel"
+                  pattern="^[0-9()+\-\s]{6,25}$" required autocomplete="tel" />
+                <div class="error" id="err-clienteTelefono" aria-live="polite"></div>
+              </div>
+
+          </section>
+
+          <!-- SECCIÓN PEDIDO -->
+          <section class="section" aria-labelledby="pedidoTitle">
+            <h2 id="pedidoTitle">2. Detalles del Pedido</h2>
+            <div class="grid">
+              <div class="field-row">
+                <label for="producto">Nombre de producto *</label>
+                <select id="producto" name="producto" required>
+                  <option  value="">-- Selecciona producto --</option>
+                  <option value="1">Chocolates Fresas</option>
+                  <option value="2">Chocolates</option>
+                  <option value="3">Desayunos</option>
+                </select>
+                <div class="error" id="err-producto" aria-live="polite"></div>
+              </div>
+
+              <div class="field-row">
+                <label for="personalizacion">Personalización</label>
+                <textarea id="personalizacion" name="personalizacion"
+                  placeholder="Ingrese los datos de la personalización"></textarea>
+              </div>
+
+              <div class="field-row">
+                <label>Opciones extras</label>
+                <div class="extras-selector">
+                  <select id="extraSelect">
+                    <option value="">-- Selecciona un extra --</option>
+                    <option value="tarjeta_regalo">Tarjeta regalo</option>
+                    <option value="gluten_free">Sin gluten</option>
+                    <option value="decoracion_especial">
+                      Decoración especial
+                    </option>
+                  </select>
+
+                  <div class="quantity-control">
+                    <button type="button" id="minusBtn">−</button>
+                    <span id="extraQty">1</span>
+                    <button type="button" id="plusBtn">+</button>
+                  </div>
+
+                  <button type="button" id="addExtraBtn">Agregar</button>
                 </div>
 
-                <div class="field-row">
-                  <label for="clienteTelefono">Teléfono *</label>
+                <!-- Lista dinámica de extras añadidos -->
+                <ul id="extrasList"></ul>
+              </div>
+<div class="field-row">
+                  <label for="de">De: *</label>
                   <input
-                    id="clienteTelefono"
-                    name="clienteTelefono"
-                    type="tel"
-                    inputmode="tel"
+                    id="de"
+                    name="de"
+                    type="de"
+                    inputmode="de"
                     pattern="^[0-9()+\-\s]{6,25}$"
                     required
-                    autocomplete="tel"
+                    autocomplete="de"
                   />
                   <div
                     class="error"
-                    id="err-clienteTelefono"
+                    id="err-de"
                     aria-live="polite"
                   ></div>
                 </div>
 
                 <div class="field-row">
-                  <label for="metodoPago">Método de pago *</label>
-                  <select id="metodoPago" name="metodoPago" required>
-                    <option value="">-- Selecciona --</option>
-                    <option value="tarjeta">Tarjeta de crédito / débito</option>
-                    <option value="efectivo">Efectivo (contra entrega)</option>
-                    <option value="transferencia">
-                      Transferencia / Nequi / Daviplata
-                    </option>
-                    <option value="paypal">PayPal</option>
-                  </select>
+                  <label for="para">Para: *</label>
+                  <input
+                    id="para"
+                    name="para"
+                    type="para"
+                    inputmode="para"
+                    pattern="^[0-9()+\-\s]{6,25}$"
+                    required
+                    autocomplete="para"
+
+                
+                  />
                   <div
                     class="error"
-                    id="err-metodoPago"
+                    id="err-para"
                     aria-live="polite"
                   ></div>
                 </div>
-              </div>
-            </section>
-
-            <!-- SECCIÓN PEDIDO -->
-            <section class="section" aria-labelledby="pedidoTitle">
-              <h2 id="pedidoTitle">2. Detalles del Pedido</h2>
-              <div class="grid">
-                <div class="field-row">
-                  <label for="producto">Nombre de producto *</label>
-                  <select id="producto" name="producto" required>
-                    <option value="">-- Selecciona producto --</option>
-                    <option value="chocolates_fresas">Chocolates Fresas</option>
-                    <option value="chocolates">Chocolates</option>
-                    <option value="desayunos">Desayunos</option>
-                  </select>
-                  <div class="error" id="err-producto" aria-live="polite"></div>
-                </div>
 
                 <div class="field-row">
-                  <label for="personalizacion">Personalización</label>
+                  <label for="tarjeta">Tarjeta</label>
                   <textarea
-                    id="personalizacion"
-                    name="personalizacion"
-                    placeholder="Texto o instrucciones (ej: 'Feliz Cumple')"
+                    id="tarjeta"
+                    name="tarjeta"
+                    placeholder="Mensaje tarjeta"
                   ></textarea>
                 </div>
 
-                <div class="field-row">
-                  <label>Opciones extras</label>
-                  <div class="extras-selector">
-                    <select id="extraSelect">
-                      <option value="">-- Selecciona un extra --</option>
-                      <option value="tarjeta_regalo">Tarjeta regalo</option>
-                      <option value="gluten_free">Sin gluten</option>
-                      <option value="decoracion_especial">
-                        Decoración especial
-                      </option>
-                    </select>
-
-                    <div class="quantity-control">
-                      <button type="button" id="minusBtn">−</button>
-                      <span id="extraQty">1</span>
-                      <button type="button" id="plusBtn">+</button>
-                    </div>
-
-                    <button type="button" id="addExtraBtn">Agregar</button>
-                  </div>
-
-                  <!-- Lista dinámica de extras añadidos -->
-                  <ul id="extrasList"></ul>
-                </div>
-
-                <div class="field-row">
-                  <label for="fechaEntrega">Fecha de entrega *</label>
-                  <input
-                    id="fechaEntrega"
-                    name="fechaEntrega"
-                    type="date"
-                    required
-                  />
-                  <div
-                    class="error"
-                    id="err-fechaEntrega"
-                    aria-live="polite"
-                  ></div>
-                  <div class="note">No se permiten fechas pasadas.</div>
-                </div>
-
-                <div class="field-row">
-                  <label for="horaEntrega">Hora de entrega *</label>
-                  <input
-                    id="horaEntrega"
-                    name="horaEntrega"
-                    type="time"
-                    required
-                  />
-                  <div
-                    class="error"
-                    id="err-horaEntrega"
-                    aria-live="polite"
-                  ></div>
-                </div>
-
-                <div class="field-row">
-                  <label>Sorpresa *</label>
-                  <div
-                    class="radios inline"
-                    role="radiogroup"
-                    aria-labelledby="sorpresaLabel"
-                  >
-                    <label
-                      ><input
-                        type="radio"
-                        name="sorpresa"
-                        value="si"
-                        required
-                      />
-                      Sí</label
-                    >
-                    <label
-                      ><input type="radio" name="sorpresa" value="no" />
-                      No</label
-                    >
-                  </div>
-                  <div class="error" id="err-sorpresa" aria-live="polite"></div>
-                </div>
+              <div class="field-row">
+                <label for="fechaEntrega">Fecha de entrega *</label>
+                <input id="fechaEntrega" name="fechaEntrega" type="date" required />
+                <div class="error" id="err-fechaEntrega" aria-live="polite"></div>
+                <div class="note">No se permiten fechas pasadas.</div>
               </div>
-            </section>
 
-            <!-- SECCIÓN DESTINATARIO -->
-            <section class="section" aria-labelledby="destTitle">
-              <h2 id="destTitle">3. Datos del Destinatario</h2>
-              <div class="grid">
-                <div class="field-row">
-                  <label for="destNombre">Nombre del destinatario *</label>
-                  <input
-                    id="destNombre"
-                    name="destNombre"
-                    type="text"
-                    required
-                  />
-                  <div
-                    class="error"
-                    id="err-destNombre"
-                    aria-live="polite"
-                  ></div>
-                </div>
 
-                <div class="field-row">
-                  <label for="destDireccion"
-                    >Dirección del destinatario *</label
-                  >
-                  <input
-                    id="destDireccion"
-                    name="destDireccion"
-                    type="text"
-                    required
-                  />
-                  <div
-                    class="error"
-                    id="err-destDireccion"
-                    aria-live="polite"
-                  ></div>
-                </div>
 
-                <div class="field-row">
-                  <label for="destTelefono">Teléfono del destinatario *</label>
-                  <input
-                    id="destTelefono"
-                    name="destTelefono"
-                    type="tel"
-                    pattern="^[0-9()+\-\s]{6,25}$"
-                    required
-                  />
-                  <div
-                    class="error"
-                    id="err-destTelefono"
-                    aria-live="polite"
-                  ></div>
-                </div>
+              <div class="field-row">
+                <label for="horaEntrega">Hora de entrega *</label>
+                <input id="horaEntrega" name="horaEntrega" type="time" required />
+                <div class="error" id="err-horaEntrega" aria-live="polite"></div>
               </div>
-            </section>
 
-            <div class="actions">
-              <div class="summary" id="miniSummary" aria-live="polite">
-                Resumen: sin datos.
+              <div class="field-row">
+                <label>Sorpresa *</label>
+                <div class="radios inline" role="radiogroup" aria-labelledby="sorpresaLabel">
+                  <label><input type="radio" name="sorpresa" value="si" required />
+                    Sí</label>
+                  <label><input type="radio" name="sorpresa" value="no" />
+                    No</label>
+                </div>
+                <div class="error" id="err-sorpresa" aria-live="polite"></div>
               </div>
-              <div style="display: flex; gap: 8px; margin-left: 12px">
-                <button type="reset" class="ghost">Limpiar</button>
-                <button type="submit" class="primary">Enviar Pedido</button>
+
+              <div class="field-row">
+                <label for="observaciones">Observaciones para el Depachador</label>
+                <textarea id="observaciones" name="observaciones"
+                  placeholder="Instrucciones para el domiciliario"></textarea>
               </div>
             </div>
-          </form>
-        </div>
 
-        <!-- Buscador -->
-        <div class="search-bar">
-          <input
-            type="text"
-            placeholder="Buscar por cliente o ID de pedido..."
-          />
-        </div>
+          </section>
 
-        <!-- Métricas -->
-        <div class="metrics">
-          <div class="card">
-            <p>Total Pedidos</p>
-            <h2>0</h2>
+
+          <!-- SECCIÓN DESTINATARIO -->
+          <section class="section" aria-labelledby="destTitle">
+            <h2 id="destTitle">3. Datos del Destinatario</h2>
+            <div class="grid">
+              <div class="field-row">
+                <label for="destNombre">Nombre del destinatario *</label>
+                <input id="destNombre" name="destNombre" type="text" required />
+                <div class="error" id="err-destNombre" aria-live="polite"></div>
+              </div>
+
+              <div class="field-row">
+                <label for="destDireccion">Dirección del destinatario *</label>
+                <input id="destDireccion" name="destDireccion" type="text" required />
+                <div class="error" id="err-destDireccion" aria-live="polite"></div>
+              </div>
+
+              <div class="field-row">
+                <label for="destTelefono">Teléfono del destinatario *</label>
+                <input id="destTelefono" name="destTelefono" type="tel" pattern="^[0-9()+\-\s]{6,25}$" required />
+                <div class="error" id="err-destTelefono" aria-live="polite"></div>
+              </div>
+            </div>
+          </section>
+
+          <div class="actions">
+            <div class="summary" id="miniSummary" aria-live="polite">
+              Resumen: sin datos.
+            </div>
+            <div style="display: flex; gap: 8px; margin-left: 12px">
+              <button type="reset" class="ghost">Limpiar</button>
+              <button type="submit" class="primary">Enviar Pedido</button>
+            </div>
           </div>
-          <div class="card">
-            <p>Pendientes</p>
-            <h2>0</h2>
-          </div>
-          <div class="card">
-            <p>En Proceso</p>
-            <h2>0</h2>
-          </div>
-          <div class="card">
-            <p>Ingresos Total</p>
-            <h2>$0</h2>
+        </form>
+      </div>
+
+      <!-- Buscador -->
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar por cliente o ID de pedido..." />
+      </div>
+
+      <!-- Métricas -->
+      <div class="metrics">
+        <div class="card">
+          <p>Total Pedidos</p>
+          <h2>0</h2>
+        </div>
+        <div class="card">
+          <p>Pendientes</p>
+          <h2>0</h2>
+        </div>
+        <div class="card">
+          <p>En Proceso</p>
+          <h2>0</h2>
+        </div>
+        <div class="card">
+          <p>Ingresos Total</p>
+          <h2>$0</h2>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1607082349566-187a101ba5a3?auto=format&fit=crop&w=800&q=80"
+            alt="Chocolates gourmet" />
+          <div class="card-body">
+            <h2>Chocolates Gourmet</h2>
+            <p>
+              Deliciosa selección de chocolates artesanales con diferentes
+              sabores.
+            </p>
+            <div class="price">$45.000</div>
+            <button>Agregar al pedido</button>
           </div>
         </div>
 
-        <div class="grid">
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1607082349566-187a101ba5a3?auto=format&fit=crop&w=800&q=80"
-              alt="Chocolates gourmet"
-            />
-            <div class="card-body">
-              <h2>Chocolates Gourmet</h2>
-              <p>
-                Deliciosa selección de chocolates artesanales con diferentes
-                sabores.
-              </p>
-              <div class="price">$45.000</div>
-              <button>Agregar al pedido</button>
-            </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80"
+            alt="Ramo de flores" />
+          <div class="card-body">
+            <h2>Ramo de Rosas</h2>
+            <p>
+              Hermoso ramo de rosas rojas frescas, ideal para ocasiones
+              especiales.
+            </p>
+            <div class="price">$65.000</div>
+            <button>Agregar al pedido</button>
           </div>
+        </div>
 
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=80"
-              alt="Ramo de flores"
-            />
-            <div class="card-body">
-              <h2>Ramo de Rosas</h2>
-              <p>
-                Hermoso ramo de rosas rojas frescas, ideal para ocasiones
-                especiales.
-              </p>
-              <div class="price">$65.000</div>
-              <button>Agregar al pedido</button>
-            </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+            alt="Desayuno sorpresa" />
+          <div class="card-body">
+            <h2>Desayuno Sorpresa</h2>
+            <p>
+              Bandeja con frutas, jugo natural, café y detalle dulce para
+              iniciar el día.
+            </p>
+            <div class="price">$80.000</div>
+            <button>Agregar al pedido</button>
           </div>
-
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
-              alt="Desayuno sorpresa"
-            />
-            <div class="card-body">
-              <h2>Desayuno Sorpresa</h2>
-              <p>
-                Bandeja con frutas, jugo natural, café y detalle dulce para
-                iniciar el día.
-              </p>
-              <div class="price">$80.000</div>
-              <button>Agregar al pedido</button>
-            </div>
-          </div>
+        </div>
 
           <div class="card">
             <img
@@ -355,5 +307,7 @@
         </div>
       </main>
     </div>
+
+    <script src="recepcion.js" type="module"></script>
   </body>
 </html>
