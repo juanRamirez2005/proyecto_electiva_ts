@@ -1,0 +1,112 @@
+{
+  "opciones": [
+    {
+      "opcion": 1,
+      "fruta": {
+        "Mango": 1,
+        "Mandarina": 2,
+        "Uva": 20,
+        "Manzana": 2,
+        "Granadilla": 1,
+        "Fresa": 5
+      },
+      "flores": {
+        "Rosa": 8
+      },
+      "precio": 88000,
+      "tamano_grande": false
+    },
+    {
+      "opcion": 2,  
+      "fruta": {
+        "Piña": 1,
+        "Mango": 1,
+        "Mandarina": 2,
+        "Uva": 20,
+        "Manzana": 2,
+        "Granadilla": 1,
+        "Fresa": 8
+      },
+      "flores": {
+        "Rosa": 12,
+        "Tulipán": 2
+      },
+      "precio": 154000,
+      "tamano_grande": false
+    },
+    {
+      "opcion": 3,
+      "fruta": {
+        "Piña": 1,
+        "Mango": 1,
+        "Mandarina": 2,
+        "Uva": 20,
+        "Manzana": 2,
+        "Granadilla": 1,
+        "Fresa": 8,
+        "Kiwi": 1,
+        "Banano": 2,
+        "Pera": 1
+      },
+      "flores": {
+        "Tulipán": 6
+      },
+      "precio": 200000,
+      "tamano_grande": true
+    },
+    {
+      "opcion": 4,
+      "fruta": {
+        "Mango": 2,
+        "Papaya": 1,
+        "Uva": 15,
+        "Manzana": 3,
+        "Fresa": 10,
+        "Cereza": 5
+      },
+      "flores": {
+        "Rosa": 10,
+        "Lirio": 4
+      },
+      "precio": 130000,
+      "tamano_grande": false
+    },
+    {
+      "opcion": 5,
+      "fruta": {
+        "Piña": 2,
+        "Mango": 2,
+        "Mandarina": 3,
+        "Uva": 25,
+        "Manzana": 4,
+        "Granadilla": 2,
+        "Fresa": 12,
+        "Kiwi": 2
+      },
+      "flores": {
+        "Tulipán": 10,
+        "Rosa": 15,
+        "Orquídea": 5
+      },
+      "precio": 250000,
+      "tamano_grande": true
+    },
+    {
+      "opcion": 6,
+      "fruta": {
+        "Banano": 5,
+        "Manzana": 6,
+        "Uva": 30,
+        "Mango": 3,
+        "Granadilla": 2,
+        "Fresa": 20
+      },
+      "flores": {
+        "Rosa": 5,
+        "Girasol": 8
+      },
+      "precio": 110000,
+      "tamano_grande": false
+    }
+  ]
+}

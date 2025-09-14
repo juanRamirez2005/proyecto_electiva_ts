@@ -1,0 +1,264 @@
+/* -------------------
+   RESET Y BASE
+------------------- */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+  background: #f5f7fa;
+  color: #2c3e50;
+}
+
+/* -------------------
+   CONTENEDOR PRINCIPAL
+------------------- */
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.container h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: #1e3a8a;
+}
+
+.container .lead {
+  text-align: center;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+/* -------------------
+   SECCIONES
+------------------- */
+.section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: #fafbfc;
+  border: 1px solid #e5e7eb;
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #1d4ed8;
+  border-left: 4px solid #3b82f6;
+  padding-left: 0.5rem;
+}
+
+/* -------------------
+   CAMPOS Y GRILLA
+------------------- */
+.grid {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-row label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.field-row input,
+.field-row select,
+.field-row textarea {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.field-row input:focus,
+.field-row select:focus,
+.field-row textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.field-row textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* -------------------
+   ERRORES Y NOTAS
+------------------- */
+.error {
+  font-size: 0.9rem;
+  color: #e11d48;
+  margin-top: 0.3rem;
+  min-height: 1.2rem;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.3rem;
+}
+
+/* -------------------
+   RADIO & INLINE
+------------------- */
+.radios.inline {
+  display: flex;
+  gap: 1rem;
+}
+
+.radios.inline label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: normal;
+}
+
+/* -------------------
+   EXTRAS SELECTOR
+------------------- */
+.extras-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-control button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: #e5e7eb;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.quantity-control button:hover {
+  background: #d1d5db;
+}
+
+#addExtraBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#addExtraBtn:hover {
+  background: #2563eb;
+}
+
+#extrasList {
+  margin-top: 0.8rem;
+  padding-left: 1.2rem;
+  list-style: disc;
+  color: #374151;
+}
+
+/* -------------------
+   ACCIONES
+------------------- */
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.summary {
+  font-size: 0.95rem;
+  color: #374151;
+  background: #f1f5f9;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  flex: 1;
+}
+
+button.primary {
+  background: #10b981;
+  border: none;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button.primary:hover {
+  background: #059669;
+}
+
+button.ghost {
+  background: transparent;
+  border: 2px solid #d1d5db;
+  color: #374151;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button.ghost:hover {
+  border-color: #374151;
+  color: #111827;
+}
+
+.navegation {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #1e3a8a; /* azul elegante */
+  padding: 1rem 2rem;
+  border-radius: 0 0 12px 12px; /* bordes inferiores redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: sticky; /* siempre visible al hacer scroll */
+  top: 0;
+  z-index: 1000;
+}
+
+.navegation a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.navegation a:hover {
+  background: #3b82f6;
+  color: #fff;
+}
