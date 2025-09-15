@@ -13,6 +13,8 @@
       "flores": {
         "Rosa": 8
       },
+      "color_cinta": "rojo",
+      "color_papel": "rosa",
       "precio": 88000,
       "tamano_grande": false
     },
@@ -31,6 +33,8 @@
         "Rosa": 12,
         "Tulipán": 2
       },
+      "color_cinta": "dorado",
+      "color_papel": "blanco",
       "precio": 154000,
       "tamano_grande": false
     },
@@ -51,6 +55,8 @@
       "flores": {
         "Tulipán": 6
       },
+      "color_cinta": "azul",
+      "color_papel": "amarillo",
       "precio": 200000,
       "tamano_grande": true
     },
@@ -68,6 +74,8 @@
         "Rosa": 10,
         "Lirio": 4
       },
+      "color_cinta": "verde",
+      "color_papel": "naranja",
       "precio": 130000,
       "tamano_grande": false
     },
@@ -88,6 +96,8 @@
         "Rosa": 15,
         "Orquídea": 5
       },
+      "color_cinta": "plateado",
+      "color_papel": "violeta",
       "precio": 250000,
       "tamano_grande": true
     },
@@ -105,6 +115,8 @@
         "Rosa": 5,
         "Girasol": 8
       },
+      "color_cinta": "negro",
+      "color_papel": "verde",
       "precio": 110000,
       "tamano_grande": false
     }
