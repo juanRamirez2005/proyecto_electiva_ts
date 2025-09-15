@@ -1,72 +1,138 @@
 body {
-font-family: Arial, sans-serif;
-background: #f4f6f9;
-padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  margin: 20px;
 }
 
-h1 {
-text-align: center;
-margin-bottom: 20px;
-color: #333;
-}
-
-.pedido-lista {
-display: flex;
-flex-direction: column;
-gap: 15px;
-max-width: 600px;
-margin: auto;
+.pedidos-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .pedido {
-display: flex;
-justify-content: space-between;
-align-items: center;
-background: #fff;
-padding: 15px 20px;
-border-radius: 10px;
-box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.pedido-info {
-display: flex;
-flex-direction: column;
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.etiqueta {
-padding: 5px 10px;
-border-radius: 8px;
-font-size: 0.9em;
-font-weight: bold;
-text-align: center;
-width: fit-content;
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
-.pendiente {
-background-color: #ffeeba;
-color: #856404;
+.pending {
+  background: #eee;
+  color: #555;
 }
 
-.proceso {
-background-color: #bee5eb;
-color: #0c5460;
+.processing {
+  background: #cce5ff;
+  color: #004085;
 }
 
-.entregado {
-background-color: #c3e6cb;
-color: #155724;
+.delivered {
+  background: #d4edda;
+  color: #155724;
 }
 
-button {
-padding: 8px 15px;
-border: none;
-border-radius: 6px;
-background: #007bff;
-color: #fff;
-cursor: pointer;
-transition: background 0.3s;
+.resumen p {
+  margin: 3px 0;
+  font-size: 14px;
 }
 
-button:hover {
-background: #0056b3;
+.detalles {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.oculto {
+  display: none;
+}
+
+.pedido-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.precio {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-eliminar {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-toggle {
+  background: transparent;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #1e3a8a;
+  padding: 1rem 2rem;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navigation a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: 0.3s, color 0.3s;
+}
+
+.navigation a:hover {
+  background: #3b82f6;
+  color: #fff;
 }

@@ -2,60 +2,163 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Pedidos</title>
-    <link rel="stylesheet" href="despacho_style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Pedidos</title>
+  <link rel="stylesheet" href="despacho_style.css" />
 </head>
 
 <body>
-    <nav class="navation">
-        <a href="../index.html">Home</a>
-        <a href="../recepcion_pedido/recepcion.html">Recepción</a>
-        <a href="../procesamiento_pedido/procesamiento.html">Procesamiento</a>
-    </nav>
-    <h1>Lista de Pedidos</h1>
-    <div class="pedido-lista">
-        <div class="pedido">
-            <div class="pedido-info">
-                <span><strong>Pedido #001</strong></span>
-                <span class="etiqueta pendiente">Pendiente</span>
-            </div>
-            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
-        </div>
+  <!-- Navegación -->
+  <nav class="navigation">
+    <a href="../index.html">Home</a>
+    <a href="../recepcion_pedido/recepcion.html">Recepción</a>
+    <a href="../procesamiento_pedido/procesamiento.html">Procesamiento</a>
+  </nav>
 
-        <div class="pedido">
-            <div class="pedido-info">
-                <span><strong>Pedido #002</strong></span>
-                <span class="etiqueta proceso">En proceso</span>
-            </div>
-            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
-        </div>
+  <h1>Lista de Pedidos</h1>
 
-        <div class="pedido">
-            <div class="pedido-info">
-                <span><strong>Pedido #003</strong></span>
-                <span class="etiqueta entregado">Entregado</span>
-            </div>
-            <button onclick="cambiarEtiqueta(this)">Cambiar Estado</button>
-        </div>
+  <div class="pedidos-container">
+    
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD001</h3>
+        <span class="status pending">Pendiente</span>
+      </div>
+      <p>Cliente:<br><strong>María García</strong><br><small>+57 300 123 4567</small></p>
+      <p>Producto:<br><strong>Chocolates Fresas</strong></p>
+      <p>Destinatario:<br><strong>Ana García</strong><br><small>+57 301 987 6543</small></p>
+      <p>Entrega:<br><strong>2024-01-20 - 15:00</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$45,000</span>
+        <small>2024-01-15</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
     </div>
 
-    <script>
-        function cambiarEtiqueta(boton) {
-            const etiqueta = boton.parentElement.querySelector(".etiqueta");
-            if (etiqueta.classList.contains("pendiente")) {
-                etiqueta.className = "etiqueta proceso";
-                etiqueta.textContent = "En proceso";
-            } else if (etiqueta.classList.contains("proceso")) {
-                etiqueta.className = "etiqueta entregado";
-                etiqueta.textContent = "Entregado";
-            } else {
-                etiqueta.className = "etiqueta pendiente";
-                etiqueta.textContent = "Pendiente";
-            }
-        }
-    </script>
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD002</h3>
+        <span class="status pending">Pendiente</span>
+      </div>
+      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+      <p>Producto:<br><strong>Desayunos</strong></p>
+      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
+      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$35,000</span>
+        <small>2024-01-14</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
+    </div>
+
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD002</h3>
+        <span class="status delivered">Entregado</span>
+      </div>
+      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+      <p>Producto:<br><strong>Desayunos</strong></p>
+      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
+      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$35,000</span>
+        <small>2024-01-14</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
+    </div>
+
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD002</h3>
+        <span class="status delivered">Entregado</span>
+      </div>
+      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+      <p>Producto:<br><strong>Desayunos</strong></p>
+      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
+      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$35,000</span>
+        <small>2024-01-14</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
+    </div>
+
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD002</h3>
+        <span class="status pending">Pendiente</span>
+      </div>
+      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+      <p>Producto:<br><strong>Desayunos</strong></p>
+      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
+      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$35,000</span>
+        <small>2024-01-14</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
+    </div>
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #ORD003</h3>
+        <span class="status delivered">Entregado</span>
+      </div>
+      <p>Cliente:<br><strong>Laura Méndez</strong><br><small>+57 302 789 4321</small></p>
+      <p>Producto:<br><strong>Ramo de Rosas</strong></p>
+      <p>Destinatario:<br><strong>Julio Ramírez</strong><br><small>+57 311 222 7788</small></p>
+      <p>Entrega:<br><strong>2024-01-10 - 18:30</strong></p>
+      <div class="pedido-footer">
+        <span class="precio">$60,000</span>
+        <small>2024-01-08</small>
+      </div>
+      <div class="nota">
+        <label for="nota-ord001">Nota:</label>
+        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-eliminar">Eliminar</button>
+        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="acciones.js"></script>
 </body>
 
 </html>
