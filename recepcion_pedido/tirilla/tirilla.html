@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tirilla Despachador</title>
+  <link rel="stylesheet" href="tirilla.css">
+</head>
+<body>
+  <div class="tirilla">
+    <h2>📦 Pedido</h2>
+    <div class="line"></div>
+
+    <div class="datos">
+      <span class="highlight">Cliente:</span><br>
+      <span id="clienteNombre"></span><br>
+      Tel: <span id="clienteTelefono"></span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="datos">
+      <span class="highlight">Producto:</span> <span id="producto"></span><br>
+      Extra: <span id="extra"></span><br>
+      Entrega: <span id="fechaEntrega"></span> <span id="horaEntrega"></span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="datos">
+      <span class="highlight">Destinatario:</span><br>
+      <span id="destNombre"></span><br>
+      Dir: <span id="destDireccion"></span><br>
+      Tel: <span id="destTelefono"></span><br>
+      Observaciones: <br> <span id="observaciones"></span>
+    </div>
+
+
+    <div class="line"></div>
+    <div class="footer">
+      ¡Gracias por tu compra!
+    </div>
+  </div>
+
+  <button onclick="window.print()">🖨 Imprimir</button>
+
+  <script>
+    // Leer parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("clienteNombre").textContent = params.get("clienteNombre") || "";
+    document.getElementById("clienteTelefono").textContent = params.get("clienteTelefono") || "";
+    document.getElementById("producto").textContent = params.get("producto") || "";
+    document.getElementById("extra").textContent = params.get("extra") || "Ninguno";
+    document.getElementById("fechaEntrega").textContent = params.get("fechaEntrega") || "";
+    document.getElementById("horaEntrega").textContent = params.get("horaEntrega") || "";
+    document.getElementById("destNombre").textContent = params.get("destNombre") || "";
+    document.getElementById("destDireccion").textContent = params.get("destDireccion") || "";
+    document.getElementById("destTelefono").textContent = params.get("destTelefono") || "";
+    document.getElementById("observaciones").textContent = params.get("observaciones" || "");
+  </script>
+</body>
+</html>
