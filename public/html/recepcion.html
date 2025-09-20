@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistema de Pedidos</title>
-  <link rel="stylesheet" href="recepcion.css" />
+  <link rel="stylesheet" href="../styles/recepcion.css" />
   <!-- <link rel="icon" href="./icono.jpeg" type="svg/x-icon"> -->
 </head>
 
@@ -17,8 +17,8 @@
       <section>
         <nav class="navegation">
           <a href="../index.html">Home</a>
-          <a href="../procesamiento_pedido/procesamiento.html">Procesamiento</a>
-          <a href="../despacho_pedido/despacho.html">Despacho</a>
+          <a href="./procesamiento.html">Procesamiento</a>
+          <a href="./despacho.html">Despacho</a>
         </nav>
 
       </section>
@@ -45,9 +45,10 @@
                 <div class="field-row">
                   <label for="clienteTelefono">Teléfono *</label>
                   <input id="clienteTelefono" name="clienteTelefono" type="tel" inputmode="tel"
-                    pattern="^[0-9()+\-\s]{6,25}$" required autocomplete="tel" />
+                   required autocomplete="tel" />
                   <div class="error" id="err-clienteTelefono" aria-live="polite"></div>
                 </div>
+
 
             </section>
 
@@ -98,14 +99,14 @@
                 </div>
                 <div class="field-row">
                   <label for="de">De: *</label>
-                  <input id="de" name="de" type="de" inputmode="de" pattern="^[0-9()+\-\s]{6,25}$" required
+                  <input id="de" name="de" type="de" required
                     autocomplete="de" />
                   <div class="error" id="err-de" aria-live="polite"></div>
                 </div>
 
                 <div class="field-row">
                   <label for="para">Para: *</label>
-                  <input id="para" name="para" type="para" inputmode="para" pattern="^[0-9()+\-\s]{6,25}$" required
+                  <input id="para" name="para" type="para" inputmode="para" required
                     autocomplete="para" />
                   <div class="error" id="err-para" aria-live="polite"></div>
                 </div>
@@ -169,26 +170,28 @@
 
                 <div class="field-row">
                   <label for="destTelefono">Teléfono del destinatario *</label>
-                  <input id="destTelefono" name="destTelefono" type="tel" pattern="^[0-9()+\-\s]{6,25}$" required />
+                  <input id="destTelefono" name="destTelefono" type="tel" required />
                   <div class="error" id="err-destTelefono" aria-live="polite"></div>
                 </div>
-              </div>
-            </section>
 
-            <div class="actions">
-              <div class="summary" id="miniSummary" aria-live="polite">
-                Resumen: sin datos.
+
+                <div class="actions">
+                  <div class="summary" id="miniSummary" aria-live="polite">
+                    Resumen: sin datos.
+                  </div>
+                  <div style="display: flex; gap: 8px; margin-left: 12px">
+                    <button type="reset" class="ghost">Limpiar</button>
+                    <button type="submit" class="primary">Enviar Pedido</button>
+                    <button type="button" class="primary" onclick="verTirilla()">Ver Tirilla</button>
+                  </div>
+                </div>
               </div>
-              <div style="display: flex; gap: 8px; margin-left: 12px">
-                <button type="reset" class="ghost">Limpiar</button>
-                <button type="submit" class="primary">Enviar Pedido</button>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
     </main>
   </div>
+
+  <script src="../js/recepcion.js" type="module"></script>
+  <script src="tirilla/tirilla.js" type="module"></script>
 </body>
 
 </html>

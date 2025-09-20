@@ -15,6 +15,7 @@
       },
       "color_cinta": "rojo",
       "color_papel": "rosa",
+      "color_caja": "beige",
       "precio": 88000,
       "tamano_grande": false
     },
@@ -35,6 +36,7 @@
       },
       "color_cinta": "dorado",
       "color_papel": "blanco",
+      "color_caja": "gris",
       "precio": 154000,
       "tamano_grande": false
     },
@@ -57,6 +59,7 @@
       },
       "color_cinta": "azul",
       "color_papel": "amarillo",
+      "color_caja": "marrón",
       "precio": 200000,
       "tamano_grande": true
     },
@@ -76,6 +79,7 @@
       },
       "color_cinta": "verde",
       "color_papel": "naranja",
+      "color_caja": "celeste",
       "precio": 130000,
       "tamano_grande": false
     },
@@ -98,6 +102,7 @@
       },
       "color_cinta": "plateado",
       "color_papel": "violeta",
+      "color_caja": "rojo vino",
       "precio": 250000,
       "tamano_grande": true
     },
@@ -117,6 +122,7 @@
       },
       "color_cinta": "negro",
       "color_papel": "verde",
+      "color_caja": "turquesa",
       "precio": 110000,
       "tamano_grande": false
     }

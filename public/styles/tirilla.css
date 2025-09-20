@@ -1,0 +1,38 @@
+body {
+  font-family: "Courier New", monospace;
+  background: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.tirilla {
+  width: 280px; /* ancho tipo recibo */
+  background: #fff;
+  padding: 16px;
+  border: 1px dashed #333;
+}
+
+.tirilla h2 {
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.line {
+  border-top: 1px dashed #333;
+  margin: 8px 0;
+}
+
+.datos {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.highlight {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.footer {
+  text-ali

@@ -15,7 +15,7 @@
   }
   
   // Calcular valor del domicilio
-  export function calcularValorDomicilio(distancia) {
+  export function calcularValorDomicilio(distancia: number) : number {
     if (distancia <= 2.0) return 0;
     if (distancia <= 5.0) return 5000;
     return 8000;
