@@ -1,5 +1,6 @@
 function verTirilla() {
     // Capturar datos
+    debugger
     const clienteNombre = document.getElementById("clienteNombre").value;
     const clienteTelefono = document.getElementById("clienteTelefono").value;
     const producto = document.getElementById("producto").value;
@@ -13,8 +14,10 @@ function verTirilla() {
     const extra = document.querySelector("#extrasList li")?.textContent || "";
 
     const url = `tirilla/tirilla.html?
-                clienteNombre=${encodeURIComponent(clienteNombre)}
-                &clienteTelefono=${encodeURIComponent(clienteTelefono)}
+                
+                
+                clienteTelefono=${encodeURIComponent(clienteTelefono)}
+                &clienteNombre=${encodeURIComponent(clienteNombre)}
                 &producto=${encodeURIComponent(producto)}
                 &extra=${encodeURIComponent(extra)}
                 &fechaEntrega=${encodeURIComponent(fechaEntrega)}

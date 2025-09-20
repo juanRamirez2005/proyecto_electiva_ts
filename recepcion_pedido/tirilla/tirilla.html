@@ -46,6 +46,8 @@
   <script>
     // Leer parámetros de la URL
     const params = new URLSearchParams(window.location.search);
+    debugger
+    console.log(params)
     document.getElementById("clienteNombre").textContent = params.get("clienteNombre") || "";
     document.getElementById("clienteTelefono").textContent = params.get("clienteTelefono") || "";
     document.getElementById("producto").textContent = params.get("producto") || "";
