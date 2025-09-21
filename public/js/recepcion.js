@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { calcularTotalOpciones, calcularTotalAdicionales, haversine, calcularValorDomicilio } from "./calculos.js";
+import { Pedido } from "./recepcion/entity/Pedido.js";
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
 // Cuando el usuario envíe el formulario
@@ -70,5 +71,57 @@ function calcularTotales(cliente, pedido, destinatario) {
         catch (err) {
             console.error("❌ Error al calcular totales:", err);
         }
+    });
+}
+const pedidos = [];
+function agregarPedido() {
+    var _a;
+    (_a = document.getElementById("btnAgregarPedido")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        var _a;
+        console.log("entró?");
+        const producto = document.getElementById("producto").value;
+        const personalizacion = document.getElementById("personalizacion").value;
+        //const extras = (document.getElementById("extrasList") as HTMLSelectElement).value;
+        const extras = [];
+        const de = document.getElementById("de").value;
+        const para = document.getElementById("para").value;
+        const tarjeta = document.getElementById("tarjeta").value;
+        const fechaEntrega = new Date(document.getElementById("fechaEntrega").value);
+        const horaEntrega = new Date(document.getElementById("horaEntrega").value);
+        const isSorpresa = ((_a = (document.querySelector('input[name="sorpresa"]:checked'))) === null || _a === void 0 ? void 0 : _a.value) === "si";
+        const observacionesDespachador = document.getElementById("observaciones").value;
+        const pedido = {
+            producto: producto,
+            personalizacion: personalizacion,
+            extras: extras,
+            de: de,
+            para: para,
+            mensajeTarjeta: tarjeta,
+            fechaEntrega: fechaEntrega,
+            horaEntrega: horaEntrega,
+            isSorpresa: isSorpresa,
+            observacionesDespachador: observacionesDespachador
+        };
+        console.log(pedido);
+        pedidos.push(pedido);
+    });
+}
+function renderizarPedidos() {
+    const resumenDiv = document.getElementById("resumenPedidos");
+    resumenDiv.innerHTML = "";
+    pedidos.forEach((p, index) => {
+        const card = document.createElement("div");
+        card.className = "pedido-card";
+        card.style.display = "inline-block";
+        card.style.margin = "0 10px";
+        card.style.padding = "10px";
+        card.style.border = "1px solid #ccc";
+        card.style.borderRadius = "8px";
+        card.innerHTML = `
+      <strong>${p.producto}</strong><br>
+      De: ${p.de} → Para: ${p.para}<br>
+      Fecha: ${p.fechaEntrega} ${p.horaEntrega}<br>
+    `;
+        resumenDiv.appendChild(card);
     });
 }

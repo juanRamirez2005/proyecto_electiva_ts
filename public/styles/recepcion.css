@@ -235,6 +235,12 @@ button.ghost:hover {
   color: #111827;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
 .navegation {
   display: flex;
   justify-content: center;

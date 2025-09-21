@@ -5,6 +5,8 @@ import {
   calcularValorDomicilio
 } from "./calculos.js";
 
+import { Pedido } from "./recepcion/entity/Pedido.js";
+
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
 
@@ -100,4 +102,64 @@ async function calcularTotales(cliente, pedido, destinatario) {
   } catch (err) {
     console.error("❌ Error al calcular totales:", err);
   }
+}
+
+const pedidos: Pedido[] = [];
+
+function agregarPedido() {
+  document.getElementById("btnAgregarPedido")?.addEventListener("click", () => {
+    console.log("entró?");
+    
+    const producto = (document.getElementById("producto") as HTMLSelectElement).value;
+    const personalizacion = (document.getElementById("personalizacion") as HTMLSelectElement).value;
+    //const extras = (document.getElementById("extrasList") as HTMLSelectElement).value;
+    const extras: string[] = [];
+    const de = (document.getElementById("de") as HTMLSelectElement).value;
+    const para = (document.getElementById("para") as HTMLSelectElement).value;
+    const tarjeta = (document.getElementById("tarjeta") as HTMLSelectElement).value;
+    const fechaEntrega = new Date((document.getElementById("fechaEntrega") as HTMLSelectElement).value);
+    const horaEntrega = new Date((document.getElementById("horaEntrega") as HTMLSelectElement).value);
+    const isSorpresa = (document.querySelector<HTMLInputElement>('input[name="sorpresa"]:checked'))?.value === "si";
+    const observacionesDespachador = (document.getElementById("observaciones") as HTMLSelectElement).value;
+
+    const pedido: Pedido = {
+      producto: producto,
+      personalizacion: personalizacion,
+      extras: extras,
+      de: de,
+      para: para,
+      mensajeTarjeta: tarjeta,
+      fechaEntrega: fechaEntrega,
+      horaEntrega: horaEntrega,
+      isSorpresa: isSorpresa,
+      observacionesDespachador: observacionesDespachador
+    }
+
+    console.log(pedido);
+    
+    pedidos.push(pedido);
+  });
+}
+
+function renderizarPedidos() {
+  const resumenDiv = document.getElementById("resumenPedidos")!;
+  resumenDiv.innerHTML = "";
+
+  pedidos.forEach((p, index) => {
+    const card = document.createElement("div");
+    card.className = "pedido-card";
+    card.style.display = "inline-block";
+    card.style.margin = "0 10px";
+    card.style.padding = "10px";
+    card.style.border = "1px solid #ccc";
+    card.style.borderRadius = "8px";
+
+    card.innerHTML = `
+      <strong>${p.producto}</strong><br>
+      De: ${p.de} → Para: ${p.para}<br>
+      Fecha: ${p.fechaEntrega} ${p.horaEntrega}<br>
+    `;
+
+    resumenDiv.appendChild(card)
+  })
 }
