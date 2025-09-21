@@ -13,6 +13,7 @@ import { Pedido } from "./recepcion/entity/Pedido.js";
 setProductoSelector();
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
+insertExtra();
 // Cuando el usuario envíe el formulario
 form === null || form === void 0 ? void 0 : form.addEventListener("submit", (e) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -100,6 +101,18 @@ function setProductoSelector() {
     </option>
   `).join("");
         adicionalesSelect.innerHTML += adicionalesHTML;
+    });
+}
+function insertExtra() {
+    const button = document.getElementById('addExtraBtn');
+    const extraSelect = document.getElementById('extraSelect');
+    button.addEventListener('click', () => {
+        const selectedOption = extraSelect.options[extraSelect.selectedIndex];
+        if (selectedOption && selectedOption.value !== "") {
+            const li = document.createElement('li');
+            li.textContent = `${selectedOption.text} (${document.getElementById('extraQty').textContent})`;
+            document.getElementById('extrasList').appendChild(li);
+        }
     });
 }
 function getJsonData() {
