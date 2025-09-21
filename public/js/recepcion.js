@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { calcularTotalOpciones, calcularTotalAdicionales, haversine, calcularValorDomicilio } from "./calculos.js";
+setProductoSelector();
 import { Pedido } from "./recepcion/entity/Pedido.js";
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
@@ -25,7 +26,7 @@ form === null || form === void 0 ? void 0 : form.addEventListener("submit", (e) 
     const pedido = {
         producto: document.getElementById("producto").value,
         personalizacion: document.getElementById("personalizacion").value,
-        extras: Array.from(document.querySelectorAll("#extrasList li")).map(li => li.textContent),
+        extras: Array.from(document.querySelectorAll("#extrasList li")).map(li => Number(li.id)),
         fechaEntrega: document.getElementById("fechaEntrega").value,
         horaEntrega: document.getElementById("horaEntrega").value,
         sorpresa: (_a = document.querySelector("input[name='sorpresa']:checked")) === null || _a === void 0 ? void 0 : _a.checked
@@ -45,17 +46,12 @@ form === null || form === void 0 ? void 0 : form.addEventListener("submit", (e) 
 function calcularTotales(cliente, pedido, destinatario) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const [opcionesRes, adicionalesRes] = yield Promise.all([
-                fetch("json/opciones.json"),
-                fetch("json/adicionales.json")
-            ]);
-            const opciones = (yield opcionesRes.json()).opciones;
-            const adicionales = (yield adicionalesRes.json()).adicionales;
+            const { opciones, adicionales } = yield getJsonData();
             // Buscar el producto elegido
             const producto = opciones.find(o => o.opcion === Number(pedido.producto));
             const totalOpciones = producto ? producto.precio : 0;
             // Extras seleccionados (si usas IDs en lugar de texto en el <ul>, mejor)
-            const extrasSeleccionados = adicionales.filter(a => pedido.extras.includes(a.nombre));
+            const extrasSeleccionados = adicionales.filter(a => pedido.extras.includes(a.id));
             const totalAdicionales = extrasSeleccionados.reduce((sum, e) => sum + e.precio, 0);
             // Distancia ficticia (aquí podrías obtener coords reales con API de geocoding)
             const coordenadasCliente = { lat: 4.58138, lon: -75.63532 };
@@ -63,7 +59,7 @@ function calcularTotales(cliente, pedido, destinatario) {
             const totalDomicilio = calcularValorDomicilio(distancia);
             // Total general
             const totalPedido = totalOpciones + totalAdicionales + totalDomicilio;
-            console.log("📦 Producto:", producto === null || producto === void 0 ? void 0 : producto.nombre, "→ $" + totalOpciones);
+            console.log("📦 Producto:", producto === null || producto === void 0 ? void 0 : producto.opcion, "→ $" + totalOpciones);
             console.log("➕ Extras:", extrasSeleccionados.map(e => e.nombre), "→ $" + totalAdicionales);
             console.log("🚚 Domicilio:", distancia.toFixed(2) + " km → $" + totalDomicilio);
             console.log("🧾 TOTAL PEDIDO: $" + totalPedido);
@@ -71,6 +67,53 @@ function calcularTotales(cliente, pedido, destinatario) {
         catch (err) {
             console.error("❌ Error al calcular totales:", err);
         }
+    });
+}
+const extrasList = document.querySelectorAll('.quantity-control button');
+extrasList.forEach(button => {
+    button.addEventListener('click', () => {
+        const input = document.querySelector('#extraQty');
+        const currentValue = Number(input.textContent);
+        if (button.classList.contains('increase')) {
+            input.textContent = (currentValue + 1).toString();
+        }
+        else {
+            input.textContent = (currentValue > 1 ? currentValue - 1 : 1).toString();
+        }
+    });
+});
+function setProductoSelector() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const productoSelect = document.getElementById('producto');
+        const adicionalesSelect = document.getElementById('extraSelect');
+        const { opciones, adicionales } = yield getJsonData();
+        const opcionesHTML = opciones.map(opcion => `
+    <option value="${opcion.opcion}">
+      Opción ${opcion.opcion}
+    </option>
+  `).join("");
+        productoSelect.innerHTML += opcionesHTML;
+        debugger;
+        const adicionalesHTML = adicionales.map(adicional => `
+    <option value="${adicional.id}">
+      ${adicional.nombre} (+$${adicional.precio})
+    </option>
+  `).join("");
+        adicionalesSelect.innerHTML += adicionalesHTML;
+    });
+}
+function getJsonData() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const [opcionesRes, adicionalesRes] = yield Promise.all([
+            fetch("../json/opciones.json"),
+            fetch("../json/adicionales.json")
+        ]);
+        const opciones = (yield opcionesRes.json()).opciones;
+        const adicionales = (yield adicionalesRes.json()).adicionales;
+        return {
+            opciones,
+            adicionales
+        };
     });
 }
 const pedidos = [];

@@ -44,8 +44,8 @@
 
                 <div class="field-row">
                   <label for="clienteTelefono">Teléfono *</label>
-                  <input id="clienteTelefono" name="clienteTelefono" type="tel" inputmode="tel"
-                   required autocomplete="tel" />
+                  <input id="clienteTelefono" name="clienteTelefono" type="tel" inputmode="tel" required
+                    autocomplete="tel" />
                   <div class="error" id="err-clienteTelefono" aria-live="polite"></div>
                 </div>
 
@@ -63,9 +63,6 @@
                   <label for="producto">Nombre de producto *</label>
                   <select id="producto" name="producto" required>
                     <option value="">-- Selecciona producto --</option>
-                    <option value="chocolates_fresas">Chocolates Fresas</option>
-                    <option value="chocolates">Chocolates</option>
-                    <option value="desayunos">Desayunos</option>
                   </select>
                   <div class="error" id="err-producto" aria-live="polite"></div>
                 </div>
@@ -77,40 +74,33 @@
                 </div>
 
                 <div class="field-row">
+                  <!-- Lista dinámica de extras añadidos -->
+                  <ul id="extrasList"></ul>
                   <label>Opciones extras</label>
                   <div class="extras-selector">
                     <select id="extraSelect">
                       <option value="">-- Selecciona un extra --</option>
-                      <option value="tarjeta_regalo">Tarjeta regalo</option>
-                      <option value="gluten_free">Sin gluten</option>
-                      <option value="decoracion_especial">
-                        Decoración especial
-                      </option>
                     </select>
 
                     <div class="quantity-control">
-                      <button type="button" id="minusBtn">−</button>
+                      <button type="button" class="decrease" id="minusBtn">−</button>
                       <span id="extraQty">1</span>
-                      <button type="button" id="plusBtn">+</button>
+                      <button type="button" class="increase" id="plusBtn">+</button>
                     </div>
 
                     <button type="button" id="addExtraBtn">Agregar</button>
                   </div>
 
-                  <!-- Lista dinámica de extras añadidos -->
-                  <ul id="extrasList"></ul>
                 </div>
                 <div class="field-row">
                   <label for="de">De: *</label>
-                  <input id="de" name="de" type="de" required
-                    autocomplete="de" />
+                  <input id="de" name="de" type="de" required autocomplete="de" />
                   <div class="error" id="err-de" aria-live="polite"></div>
                 </div>
 
                 <div class="field-row">
                   <label for="para">Para: *</label>
-                  <input id="para" name="para" type="para" inputmode="para" required
-                    autocomplete="para" />
+                  <input id="para" name="para" type="para" inputmode="para" required autocomplete="para" />
                   <div class="error" id="err-para" aria-live="polite"></div>
                 </div>
 

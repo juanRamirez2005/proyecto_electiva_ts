@@ -7,25 +7,27 @@ import {
 
 import { Pedido } from "./recepcion/entity/Pedido.js";
 
+setProductoSelector();
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
+
 
 // Cuando el usuario envíe el formulario
 form?.addEventListener("submit", async (e) => {
   e.preventDefault(); // evitar recargar página
 
   // 📌 1. Datos del cliente
-  const cliente : {nombre: string, telefono: string} = {
+  const cliente: { nombre: string, telefono: string } = {
     nombre: (document.getElementById("clienteNombre") as HTMLInputElement).value,
     telefono: (document.getElementById("clienteTelefono") as HTMLInputElement).value
   };;
 
   // 📌 2. Datos del pedido
-  const pedido : { producto : string, personalizacion: string, extras: Array<string>, fechaEntrega: string, horaEntrega: string, sorpresa: boolean} = {
+  const pedido: { producto: string, personalizacion: string, extras: Array<number>, fechaEntrega: string, horaEntrega: string, sorpresa: boolean } = {
     producto: (document.getElementById("producto") as HTMLInputElement).value,
     personalizacion: (document.getElementById("personalizacion") as HTMLInputElement).value,
-    extras: Array.from(document.querySelectorAll("#extrasList li")).map(li => li.textContent),
-    fechaEntrega: (document.getElementById("fechaEntrega") as HTMLInputElement ).value,
+    extras: Array.from(document.querySelectorAll("#extrasList li")).map(li => Number(li.id)),
+    fechaEntrega: (document.getElementById("fechaEntrega") as HTMLInputElement).value,
     horaEntrega: (document.getElementById("horaEntrega") as HTMLInputElement).value,
     sorpresa: (document.querySelector("input[name='sorpresa']:checked") as HTMLInputElement)?.checked
   };
@@ -46,33 +48,9 @@ form?.addEventListener("submit", async (e) => {
 });
 
 
-async function calcularTotales(cliente, pedido, destinatario) {
+async function calcularTotales(cliente: { nombre: string, telefono: string }, pedido: { producto: string, personalizacion: string, extras: Array<number>, fechaEntrega: string, horaEntrega: string, sorpresa: boolean }, destinatario: { nombre: string, direccion: string, telefono: string }) {
   try {
-    const [opcionesRes, adicionalesRes] = await Promise.all([
-      fetch("json/opciones.json"),
-      fetch("json/adicionales.json")
-    ]);
-
-    const opciones = (await opcionesRes.json() as {
-      opciones: Array<{
-        opcion: number;
-        fruta: Record<string, number>;
-        flores: Record<string, number>;
-        color_cinta: string;
-        color_papel: string;
-        color_caja: string;
-        precio: number;
-        tamano_grande: boolean;
-      }>;
-    }).opciones;
-    const adicionales = (await adicionalesRes.json() as {
-      adicionales: Array<{
-        id: number;
-        nombre: string;
-        precio: number;
-      }>;
-    }
-    ).adicionales;
+    const { opciones, adicionales } = await getJsonData();
 
     // Buscar el producto elegido
     const producto = opciones.find(o => o.opcion === Number(pedido.producto));
@@ -80,7 +58,7 @@ async function calcularTotales(cliente, pedido, destinatario) {
 
     // Extras seleccionados (si usas IDs en lugar de texto en el <ul>, mejor)
     const extrasSeleccionados = adicionales.filter(a =>
-      pedido.extras.includes(a.nombre)
+      pedido.extras.includes(a.id)
     );
     const totalAdicionales = extrasSeleccionados.reduce((sum, e) => sum + e.precio, 0);
 
@@ -95,13 +73,95 @@ async function calcularTotales(cliente, pedido, destinatario) {
     // Total general
     const totalPedido = totalOpciones + totalAdicionales + totalDomicilio;
 
-    console.log("📦 Producto:", producto?.nombre, "→ $" + totalOpciones);
+    console.log("📦 Producto:", producto?.opcion, "→ $" + totalOpciones);
     console.log("➕ Extras:", extrasSeleccionados.map(e => e.nombre), "→ $" + totalAdicionales);
     console.log("🚚 Domicilio:", distancia.toFixed(2) + " km → $" + totalDomicilio);
     console.log("🧾 TOTAL PEDIDO: $" + totalPedido);
   } catch (err) {
     console.error("❌ Error al calcular totales:", err);
   }
+}
+
+const extrasList = document.querySelectorAll('.quantity-control button');
+extrasList.forEach(button => {
+  button.addEventListener('click', () => {
+    const input = document.querySelector('#extraQty') as HTMLInputElement;
+    const currentValue = Number(input.textContent);
+
+    if (button.classList.contains('increase')) {
+      input.textContent = (currentValue + 1).toString();
+    } else {
+      input.textContent = (currentValue > 1 ? currentValue - 1 : 1).toString();
+    }
+  });
+});
+
+async function setProductoSelector() {
+  const productoSelect = document.getElementById('producto') as HTMLSelectElement;
+  const adicionalesSelect = document.getElementById('extraSelect') as HTMLSelectElement;
+  const { opciones, adicionales } = await getJsonData();
+  const opcionesHTML = opciones.map(opcion => `
+    <option value="${opcion.opcion}">
+      Opción ${opcion.opcion}
+    </option>
+  `).join("");
+  productoSelect.innerHTML += opcionesHTML;
+  debugger
+  const adicionalesHTML = adicionales.map(adicional => `
+    <option value="${adicional.id}">
+      ${adicional.nombre} (+$${adicional.precio})
+    </option>
+  `).join("");
+  adicionalesSelect.innerHTML += adicionalesHTML;
+}
+
+async function getJsonData(): Promise<{
+  opciones: Array<{
+    opcion: number;
+    fruta: Record<string, number>;
+    flores: Record<string, number>;
+    color_cinta: string;
+    color_papel: string;
+    color_caja: string;
+    precio: number;
+    tamano_grande: boolean;
+  }>;
+  adicionales: Array<{
+    id: number;
+    nombre: string;
+    precio: number;
+  }>;
+}> {
+  const [opcionesRes, adicionalesRes] = await Promise.all([
+    fetch("../json/opciones.json"),
+    fetch("../json/adicionales.json")
+  ]);
+
+  const opciones = (await opcionesRes.json() as {
+    opciones: Array<{
+      opcion: number;
+      fruta: Record<string, number>;
+      flores: Record<string, number>;
+      color_cinta: string;
+      color_papel: string;
+      color_caja: string;
+      precio: number;
+      tamano_grande: boolean;
+    }>;
+  }).opciones;
+  const adicionales = (await adicionalesRes.json() as {
+    adicionales: Array<{
+      id: number;
+      nombre: string;
+      precio: number;
+    }>;
+  }
+  ).adicionales;
+
+  return {
+    opciones,
+    adicionales
+  };
 }
 
 const pedidos: Pedido[] = [];
