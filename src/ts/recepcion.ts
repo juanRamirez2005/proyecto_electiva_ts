@@ -5,6 +5,8 @@ import {
   calcularValorDomicilio
 } from "./calculos.js";
 
+import { Pedido } from "./recepcion/entity/Pedido.js";
+
 setProductoSelector();
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
@@ -104,7 +106,6 @@ async function setProductoSelector() {
     </option>
   `).join("");
   productoSelect.innerHTML += opcionesHTML;
-  debugger
   const adicionalesHTML = adicionales.map(adicional => `
     <option value="${adicional.id}">
       ${adicional.nombre} (+$${adicional.precio})
@@ -144,6 +145,7 @@ async function getJsonData(): Promise<{
     precio: number;
   }>;
 }> {
+
   const [opcionesRes, adicionalesRes] = await Promise.all([
     fetch("../json/opciones.json"),
     fetch("../json/adicionales.json")
@@ -174,4 +176,191 @@ async function getJsonData(): Promise<{
     opciones,
     adicionales
   };
+}
+
+const pedidos: Pedido[] = [];
+
+document.getElementById("btnAgregarPedido")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  if(!validarCamposPedido()) return;
+
+  const producto = (document.getElementById("producto") as HTMLSelectElement).value;
+  const personalizacion = (document.getElementById("personalizacion") as HTMLSelectElement).value;
+  //const extras = (document.getElementById("extrasList") as HTMLSelectElement).value;
+  const extras: string[] = [];
+  const de = (document.getElementById("de") as HTMLSelectElement).value;
+  const para = (document.getElementById("para") as HTMLSelectElement).value;
+  const tarjeta = (document.getElementById("tarjeta") as HTMLSelectElement).value;
+  const fechaEntrega = new Date((document.getElementById("fechaEntrega") as HTMLSelectElement).value);
+  const horaEntrega = new Date((document.getElementById("horaEntrega") as HTMLSelectElement).value);
+  const isSorpresa = (document.querySelector<HTMLInputElement>('input[name="sorpresa"]:checked'))?.value === "si";
+  const observacionesDespachador = (document.getElementById("observaciones") as HTMLSelectElement).value;
+
+  const pedido: Pedido = {
+    producto: producto,
+    personalizacion: personalizacion,
+    extras: extras,
+    de: de,
+    para: para,
+    mensajeTarjeta: tarjeta,
+    fechaEntrega: fechaEntrega,
+    horaEntrega: horaEntrega,
+    isSorpresa: isSorpresa,
+    observacionesDespachador: observacionesDespachador
+  }
+
+  pedidos.unshift(pedido);
+  renderizarPedidos();
+  limpiarCamposPedido();
+});
+
+function setError(input: HTMLElement, errorId: string, mensaje: string) {
+  input.classList.add("error-border");
+  const errorDiv = document.getElementById(errorId);
+  if(errorDiv) errorDiv.textContent = mensaje;
+}
+
+function resetErrores() {
+  document.querySelectorAll(".error").forEach(el => el.textContent = "");
+  document.querySelectorAll(".error-border").forEach(el => el.classList.remove("error-border"));
+}
+
+function validarCamposDestinatario() {
+  let valido = true;
+  resetErrores();
+
+  const nombreDestino = document.getElementById("destNombre") as HTMLSelectElement | null;
+  if(nombreDestino && !nombreDestino.value.trim()) {
+    valido = false;
+    setError(nombreDestino, "err-nombreDestino", "Campo obligatorio");
+  }
+
+  const direccionDestino = document.getElementById("destDireccion") as HTMLSelectElement | null;
+  if(direccionDestino && !direccionDestino.value.trim()) {
+    valido = false;
+    setError(direccionDestino, "err-direccionDestino", "Campo obligatorio");
+  }
+
+  const telefonoDestino = document.getElementById("destTelefono") as HTMLSelectElement | null;
+  if(telefonoDestino && !telefonoDestino?.value.trim()) {
+    valido = false;
+    setError(telefonoDestino, "err-telefonoDestino", "Campo obligatorio");
+  }
+
+  
+  return valido;
+}
+
+function validarCamposCliente() {
+  let valido = true;
+  resetErrores();
+
+  const nombre = document.getElementById("clienteTitle") as HTMLSelectElement | null;
+  if(nombre && !nombre.value.trim()) {
+    valido = false;
+    setError(nombre, "err-nombreCliente", "Campo obligatorio");
+  }
+
+  const telefono = document.getElementById("clienteTelefono") as HTMLSelectElement | null;
+  if(telefono && !telefono?.value.trim()) {
+    valido = false;
+    setError(telefono, "err-telefonoCliente", "Campo obligatorio");
+  }
+
+
+  return valido;
+}
+
+function validarCamposPedido() {
+  let valido = true;
+  resetErrores();
+
+  // Valicación de producto
+  const producto = document.getElementById("producto") as HTMLSelectElement | null;
+  if(producto && !producto.value) {
+    valido = false;
+    setError(producto, "err-producto", "Selecciona un producto")
+  }
+
+  // Validación de "de"
+  const de = document.getElementById("de") as HTMLSelectElement | null;
+  if(de && !de.value.trim()) {
+    valido = false;
+    setError(de, "err-de", "Campo obligatorio")
+  }
+
+  // Validación de "para"
+  const para = document.getElementById("para") as HTMLSelectElement | null;
+  if(para && !para.value.trim()) {
+    valido = false;
+    setError(para, "err-para", "Campo obligatorio");
+  }
+
+  // Validación de fecha
+  const fecha = document.getElementById("fechaEntrega") as HTMLSelectElement | null;
+  if(fecha) {
+    if(!fecha.value) {
+      valido = false;
+      setError(fecha, "err-fechaEntrega", "Campo obligatorio");
+    } else {
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+      const fechaIngresada = new Date(fecha.value);
+      if(fechaIngresada < hoy) {
+        valido = false;
+        setError(fecha, "err-fechaEntrega", "No se permiten fechas pasadas");
+      }
+    }
+  }
+
+  // Validación de hora
+  const hora = document.getElementById("horaEntrega") as HTMLInputElement | null;
+  if (hora && !hora.value) {
+    valido = false;
+    setError(hora, "err-horaEntrega", "Campo obligatorio");
+  }
+
+  // Validación de isSorpresa
+  const sorpresa = document.querySelector<HTMLInputElement>("input[name='sorpresa']:checked");
+  if (!sorpresa) {
+    valido = false;
+    const errSorpresa = document.getElementById("err-sorpresa");
+    if (errSorpresa) errSorpresa.textContent = "Selecciona una opción";
+  }
+
+
+  return valido;
+}
+
+function limpiarCamposPedido() {
+  (document.getElementById("producto") as HTMLSelectElement).value = "";
+  (document.getElementById("personalizacion") as HTMLTextAreaElement).value = "";
+  (document.getElementById("extraSelect") as HTMLSelectElement).value = "";
+  (document.getElementById("extrasList") as HTMLUListElement).innerHTML = "";
+  (document.getElementById("de") as HTMLInputElement).value = "";
+  (document.getElementById("para") as HTMLInputElement).value = "";
+  (document.getElementById("tarjeta") as HTMLTextAreaElement).value = "";
+  (document.getElementById("fechaEntrega") as HTMLInputElement).value = "";
+  (document.getElementById("horaEntrega") as HTMLInputElement).value = "";
+  //(document.querySelector<HTMLInputElement>('input[name="sorpresa"]:checked'))?.checked = false;
+  (document.getElementById("observaciones") as HTMLTextAreaElement).value = "";
+  (document.getElementById("extraQty") as HTMLElement).textContent = "1";
+}
+
+function renderizarPedidos() {
+  const resumenDiv = document.getElementById("resumenPedidos")!;
+  resumenDiv.innerHTML = "";
+
+  pedidos.forEach((p, index) => {
+    const card = document.createElement("div");
+    card.className = "pedido-card";
+    card.innerHTML = `
+      <strong>${p.producto}</strong><br>
+      De: ${p.de} → Para: ${p.para}<br>
+      Fecha: ${p.fechaEntrega} ${p.horaEntrega}<br>
+    `;
+
+    resumenDiv.appendChild(card)
+  })
 }

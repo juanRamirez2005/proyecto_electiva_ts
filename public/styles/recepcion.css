@@ -235,6 +235,12 @@ button.ghost:hover {
   color: #111827;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
 .navegation {
   display: flex;
   justify-content: center;
@@ -261,4 +267,38 @@ button.ghost:hover {
 .navegation a:hover {
   background: #3b82f6;
   color: #fff;
+}
+
+#resumenPedidos {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+#resumenPedidos::-webkit-scrollbar {
+  height: 8px;
+}
+#resumenPedidos::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+#resumenPedidos::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pedido-card {
+  min-width: 200px;
+  flex: 0 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.error-border {
+  border: 2px solid red !important;
 }
