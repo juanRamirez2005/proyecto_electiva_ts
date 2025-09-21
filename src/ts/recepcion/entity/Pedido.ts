@@ -1,4 +1,4 @@
-import { Adicional } from "./Adicional";
+import { Adicional } from "./Adicional.js";
 
 export class Pedido {
     producto: string;

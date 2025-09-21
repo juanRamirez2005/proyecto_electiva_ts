@@ -1,4 +1,4 @@
-import { Adicional } from "./Adicional";
+import { Adicional } from "./Adicional.js";
 export class Pedido {
     constructor(producto, personalizacion, extras, de, para, mensajeTarjeta, fechaEntrega, horaEntrega, isSorpresa, observacionesDespachador) {
         this.producto = producto;
