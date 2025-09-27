@@ -11,7 +11,7 @@ export function verTirilla(){
     const destTelefonoInput = (document.getElementById("destTelefono") as HTMLInputElement | null ) ?.value || "" ;
     const observacionesInput = (document.getElementById("observaciones") as HTMLInputElement | null ) ?.value || "";
 
-    const url = `/proyecto_electiva_ts/public/html/tirilla.html?
+    const url = `./tirilla.html?
             
             inicial=${encodeURIComponent(clienteTelefonoInput)}
             &clienteTelefono=${encodeURIComponent(clienteTelefonoInput)}
@@ -20,8 +20,7 @@ export function verTirilla(){
             &fechaEntrega=${encodeURIComponent(fechaEntregaInput)}
             &horaEntrega=${encodeURIComponent(horaEntregaInput)}
             &destNombre=${encodeURIComponent(destNombreInput)}
-            &destDireccion=${encodeURIComponent(destDireccionInput)}
-            &destTelefono=${encodeURIComponent(destTelefonoInput)}
+            &destDireccion=${encodeURIComponent(destDireccionInput)} &destTelefono=${encodeURIComponent(destTelefonoInput)}
             &observaciones=${encodeURIComponent(observacionesInput)}`;
          window.open(url, "_blank", "width=400,height=600");
 
