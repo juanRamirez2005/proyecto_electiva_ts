@@ -8,8 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var _a;
-import { calcularTotalOpciones, calcularTotalAdicionales, haversine, calcularValorDomicilio } from "./calculos.js";
-import { Pedido } from "./recepcion/entity/Pedido.js";
+import { calcularTotalOpciones, calcularTotalAdicionales, haversine, calcularValorDomicilio } from "./recepcion/calculos.js";
+import { Pedido } from "./recepcion/components/Pedido.js";
+import { verTirilla } from "./despacho/tirilla.js";
 setProductoSelector();
 const form = document.getElementById("orderForm");
 const coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
@@ -168,10 +169,48 @@ function setError(input, errorId, mensaje) {
     if (errorDiv)
         errorDiv.textContent = mensaje;
 }
-function validarCamposPedido() {
-    let valido = true;
+function resetErrores() {
     document.querySelectorAll(".error").forEach(el => el.textContent = "");
     document.querySelectorAll(".error-border").forEach(el => el.classList.remove("error-border"));
+}
+function validarCamposDestinatario() {
+    let valido = true;
+    resetErrores();
+    const nombreDestino = document.getElementById("destNombre");
+    if (nombreDestino && !nombreDestino.value.trim()) {
+        valido = false;
+        setError(nombreDestino, "err-nombreDestino", "Campo obligatorio");
+    }
+    const direccionDestino = document.getElementById("destDireccion");
+    if (direccionDestino && !direccionDestino.value.trim()) {
+        valido = false;
+        setError(direccionDestino, "err-direccionDestino", "Campo obligatorio");
+    }
+    const telefonoDestino = document.getElementById("destTelefono");
+    if (telefonoDestino && !(telefonoDestino === null || telefonoDestino === void 0 ? void 0 : telefonoDestino.value.trim())) {
+        valido = false;
+        setError(telefonoDestino, "err-telefonoDestino", "Campo obligatorio");
+    }
+    return valido;
+}
+function validarCamposCliente() {
+    let valido = true;
+    resetErrores();
+    const nombre = document.getElementById("clienteTitle");
+    if (nombre && !nombre.value.trim()) {
+        valido = false;
+        setError(nombre, "err-nombreCliente", "Campo obligatorio");
+    }
+    const telefono = document.getElementById("clienteTelefono");
+    if (telefono && !(telefono === null || telefono === void 0 ? void 0 : telefono.value.trim())) {
+        valido = false;
+        setError(telefono, "err-telefonoCliente", "Campo obligatorio");
+    }
+    return valido;
+}
+function validarCamposPedido() {
+    let valido = true;
+    resetErrores();
     // Valicación de producto
     const producto = document.getElementById("producto");
     if (producto && !producto.value) {
@@ -207,7 +246,7 @@ function validarCamposPedido() {
             }
         }
     }
-    // Validació nde hora
+    // Validación de hora
     const hora = document.getElementById("horaEntrega");
     if (hora && !hora.value) {
         valido = false;

@@ -3,9 +3,10 @@ import {
   calcularTotalAdicionales,
   haversine,
   calcularValorDomicilio
-} from "./calculos.js";
+} from "./recepcion/calculos.js";
 
-import { Pedido } from "./recepcion/entity/Pedido.js";
+import { Pedido } from "./recepcion/components/Pedido.js";
+import { verTirilla } from "./despacho/tirilla.js";
 
 setProductoSelector();
 const form = document.getElementById("orderForm");
