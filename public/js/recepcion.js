@@ -290,3 +290,55 @@ function renderizarPedidos() {
         resumenDiv.appendChild(card);
     });
 }
+function cargarSidebar() {
+    return __awaiter(this, arguments, void 0, function* (jsonPath = "../json/opciones.json") {
+        try {
+            const response = yield fetch(jsonPath);
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+            const data = yield response.json();
+            const sidebarList = document.getElementById("sidebar-list");
+            if (!sidebarList)
+                return;
+            sidebarList.innerHTML = "";
+            data.opciones.forEach((item) => {
+                const li = document.createElement("li");
+                // Título de la opción
+                const title = document.createElement("strong");
+                title.textContent = `Opción ${item.opcion} - $${item.precio.toLocaleString()}`;
+                // Frutas
+                const frutas = Object.keys(item.fruta)
+                    .map(nombre => `${nombre} (${item.fruta[nombre]})`)
+                    .join(", ");
+                // Flores
+                const flores = Object.keys(item.flores)
+                    .map(nombre => `${nombre} (${item.flores[nombre]})`)
+                    .join(", ");
+                const details = document.createElement("small");
+                details.textContent = `Frutas: ${frutas} | Flores: ${flores}`;
+                li.appendChild(title);
+                li.appendChild(details);
+                sidebarList.appendChild(li);
+            });
+        }
+        catch (error) {
+            console.error("Error cargando menú:", error);
+        }
+    });
+}
+function initSidebarToggle(toggleBtnId = "menu-toggle", sidebarId = "sidebar") {
+    const toggleBtn = document.getElementById(toggleBtnId);
+    const sidebar = document.getElementById(sidebarId);
+    if (!toggleBtn || !sidebar) {
+        console.error("No se encontró el botón o el sidebar");
+        return;
+    }
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    cargarSidebar();
+    initSidebarToggle();
+});
