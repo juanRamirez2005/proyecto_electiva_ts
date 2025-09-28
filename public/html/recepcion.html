@@ -3,13 +3,21 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- <meta http-equiv="refresh" content="3"/> -->
   <title>Sistema de Pedidos</title>
   <link rel="stylesheet" href="../styles/recepcion.css" />
   <link rel="icon" type="image/svg" href="../assets/icon.svg">
 </head>
 
 <body>
+
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar">
+  <ul id="sidebar-list"></ul>
+</aside>
+
   <div class="page-container">
 
     <!-- Main -->
@@ -24,6 +32,7 @@
       </section>
 
       <section>
+        <button id="menu-toggle" class="menu-btn">☰ Menú</button>
         <div class="container" role="main">
           <h1>Formulario de Pedido</h1>
           <p class="lead">
