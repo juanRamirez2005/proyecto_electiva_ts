@@ -141,11 +141,6 @@
                     placeholder="Instrucciones para el domiciliario"></textarea>
                 </div>
               </div>
-
-              <div class="button-container">
-                <button type="submit" class="primary" id="btnAgregarPedido">Agregar Pedido</button>
-              </div>
-
             </section>
 
 
@@ -173,13 +168,11 @@
 
 
                 <div class="actions">
-                  <div class="summary" id="miniSummary" aria-live="polite">
-                    Resumen: sin datos.
-                  </div>
                   <div style="display: flex; gap: 8px; margin-left: 12px">
-                    <button type="reset" class="ghost">Limpiar</button>
+                    <button type="reset" class="danger">Limpiar</button>
+                    <button type="button" class="ghost" onclick="verTirilla()">Ver Tirilla</button>
+                    <button type="submit" class="secundary" id="btnAgregarPedido">Agregar Pedido</button>
                     <button type="submit" class="primary">Enviar Pedido</button>
-                    <button type="button" class="primary" onclick="verTirilla()">Ver Tirilla</button>
                   </div>
                 </div>
               </div>

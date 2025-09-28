@@ -187,7 +187,7 @@ body {
 .actions {
   margin-top: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
@@ -202,8 +202,7 @@ body {
   flex: 1;
 }
 
-button.primary {
-  background: #10b981;
+button {
   border: none;
   color: #fff;
   padding: 0.7rem 1.5rem;
@@ -212,11 +211,34 @@ button.primary {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+
+  &.primary {
+    background: #10b981;
+
+    &:hover {
+      background: #059669;
+    }
+  }
+
+  &.secundary {
+    background: #3b82f6;
+
+    &:hover {
+      background: #2563eb;
+    }
+  }
+
+  &.danger {
+    background: #ef4444;
+
+    &:hover {
+      background: #dc2626;
+    }
+  }
 }
 
-button.primary:hover {
-  background: #059669;
-}
+
+
 
 button.ghost {
   background: transparent;
