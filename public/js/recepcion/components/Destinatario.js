@@ -1,4 +1,4 @@
-import { Cliente } from "./Cliente";
+import { Cliente } from "./Cliente.js";
 export class Destinatario extends Cliente {
     constructor(nombre, telefono, direccion) {
         super(nombre, telefono);
