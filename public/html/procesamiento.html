@@ -333,7 +333,7 @@
                                     Selecciona empleados para procesar los pedidos.
                                 </div>
                                 <div style="display: flex; gap: 8px; margin-left: 12px">
-                                    <button type="button" class="ghost" onclick="limpiarFormulario()">Limpiar Todo</button>
+                                    <button type="button" class="ghost" onclick="window.procesamientoPedidos.limpiarFormulario()">Limpiar Todo</button>
                                     <button type="submit" class="primary" id="btnConfirmarProcesamiento">Confirmar Procesamiento</button>
                                 </div>
                             </div>
@@ -344,7 +344,7 @@
         </main>
     </div>
 
-    <script src="../js/procesamiento.js" type="module"></script>
+    <script src="../../src/ts/procesamiento/procesamiento.ts" type="module"></script>
     <script src="../js/autoreload.js"></script>
 </body>
 
