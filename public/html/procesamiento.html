@@ -1,36 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procesamiento pedidos</title>
+    <title>Procesamiento de Pedidos</title>
+    <link rel="stylesheet" href="../styles/recepcion.css" />
     <link rel="icon" type="image/svg" href="../assets/icon.svg">
 </head>
 
 <body>
-    <nav class="navigation">
-      <a href="../../index.html">Home</a>
-      <a href="./recepcion.html">Recepción</a>
-      <a href="./despacho.html">Despacho</a>
-    </nav>
+    <div class="page-container-full">
+        <!-- Main -->
+        <main class="main-full">
+            <section>
+                <nav class="navegation">
+                    <a href="../../index.html">Home</a>
+                    <a href="./recepcion.html">Recepción</a>
+                    <a href="./despacho.html">Despacho</a>
+                </nav>
+            </section>
+
+            <section>
+                <div class="container-full" role="main">
+                    <h1>Procesamiento de Pedidos</h1>
+                    <p class="lead">
+                        Asigna empleados para procesar los pedidos pendientes. Puedes seleccionar múltiples empleados por pedido.
+                    </p>
+
+                    <div id="procesamientoForm" novalidate>
+                        <!-- LAYOUT DE DOS COLUMNAS -->
+                        <div class="pedidos-layout">
+                            <!-- COLUMNA IZQUIERDA -->
+                            <div class="columna-izquierda">
+                                <!-- GRUPO CLIENTE 1: María García -->
+                                <div class="cliente-grupo" data-cliente="maria-garcia">
+                                    <div class="cliente-header">
+                                        <h2>👤 Cliente: María García</h2>
+                                        <span class="pedidos-count">2 pedidos</span>
+                                    </div>
+                                    
+                                    <!-- PEDIDO 1 -->
+                                    <section class="section pedido-card-large" aria-labelledby="pedido1Title">
+                                        <h3 id="pedido1Title">Pedido #ORD001 - 14:30</h3>
+                                        <div class="pedido-grid">
+                                            <!-- ZONA 1: CLIENTE -->
+                                            <div class="pedido-zona">
+                                                <h4>👤 Cliente</h4>
+                                                <div class="zona-content">
+                                                    <div class="cliente-info">
+                                                        <strong id="cliente1Nombre">María García</strong>
+                                                        <p id="cliente1Telefono">+57 300 123 4567</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 2: MATERIALES -->
+                                            <div class="pedido-zona">
+                                                <h4>📦 Materiales</h4>
+                                                <div class="zona-content">
+                                                    <div class="materiales-info">
+                                                        <strong id="producto1Nombre">Chocolates Fresas</strong>
+                                                        <p id="producto1Personalizacion">Personalización: "Feliz cumpleaños"</p>
+                                                        <div class="extras-list">
+                                                            <span class="extra-tag">🎁 Caja de regalo</span>
+                                                            <span class="extra-tag">💌 Tarjeta personalizada</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 3: EMPLEADO -->
+                                            <div class="pedido-zona">
+                                                <h4>👨‍🍳 Asignar Empleados</h4>
+                                                <div class="zona-content">
+                                                    <select id="empleado1Select" class="empleado-select" multiple required>
+                                                        <option value="maria" data-icon="👩‍🍳">María García - Chef Principal</option>
+                                                        <option value="carlos" data-icon="👨‍🍳">Carlos López - Chef Especialista</option>
+                                                        <option value="ana" data-icon="👩‍💼">Ana Rodríguez - Supervisora</option>
+                                                        <option value="luis" data-icon="��‍💼">Luis Martínez - Coordinador</option>
+                                                        <option value="sofia" data-icon="👩‍🎨">Sofía Herrera - Decoradora</option>
+                                                    </select>
+                                                    <div class="instrucciones-seleccion">
+                                                        💡 Mantén presionado Ctrl (Cmd en Mac) y haz clic para seleccionar múltiples empleados
+                                                    </div>
+                                                    <div class="empleado-seleccionado" id="empleado1Seleccionado">
+                                                        <!-- Los empleados seleccionados aparecerán aquí -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!-- PEDIDO 2 -->
+                                    <section class="section pedido-card-large" aria-labelledby="pedido2Title">
+                                        <h3 id="pedido2Title">Pedido #ORD002 - 15:45</h3>
+                                        <div class="pedido-grid">
+                                            <!-- ZONA 1: CLIENTE -->
+                                            <div class="pedido-zona">
+                                                <h4>👤 Cliente</h4>
+                                                <div class="zona-content">
+                                                    <div class="cliente-info">
+                                                        <strong id="cliente2Nombre">María García</strong>
+                                                        <p id="cliente2Telefono">+57 300 123 4567</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 2: MATERIALES -->
+                                            <div class="pedido-zona">
+                                                <h4>📦 Materiales</h4>
+                                                <div class="zona-content">
+                                                    <div class="materiales-info">
+                                                        <strong id="producto2Nombre">Ramo de Rosas</strong>
+                                                        <p id="producto2Personalizacion">Personalización: "Te amo"</p>
+                                                        <div class="extras-list">
+                                                            <span class="extra-tag">🍫 Chocolates</span>
+                                                            <span class="extra-tag">🎈 Globo con helio</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 3: EMPLEADO -->
+                                            <div class="pedido-zona">
+                                                <h4>👨‍🍳 Asignar Empleados</h4>
+                                                <div class="zona-content">
+                                                    <select id="empleado2Select" class="empleado-select" multiple required>
+                                                        <option value="maria" data-icon="👩‍🍳">María García - Chef Principal</option>
+                                                        <option value="carlos" data-icon="👨‍🍳">Carlos López - Chef Especialista</option>
+                                                        <option value="ana" data-icon="👩‍💼">Ana Rodríguez - Supervisora</option>
+                                                        <option value="luis" data-icon="👨‍💼">Luis Martínez - Coordinador</option>
+                                                        <option value="sofia" data-icon="👩‍🎨">Sofía Herrera - Decoradora</option>
+                                                    </select>
+                                                    <div class="instrucciones-seleccion">
+                                                        💡 Mantén presionado Ctrl (Cmd en Mac) y haz clic para seleccionar múltiples empleados
+                                                    </div>
+                                                    <div class="empleado-seleccionado" id="empleado2Seleccionado">
+                                                        <!-- Los empleados seleccionados aparecerán aquí -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+
+                                <!-- GRUPO CLIENTE 2: Carlos López -->
+                                <div class="cliente-grupo" data-cliente="carlos-lopez">
+                                    <div class="cliente-header">
+                                        <h2>👤 Cliente: Carlos López</h2>
+                                        <span class="pedidos-count">1 pedido</span>
+                                    </div>
+                                    
+                                    <!-- PEDIDO 3 -->
+                                    <section class="section pedido-card-large" aria-labelledby="pedido3Title">
+                                        <h3 id="pedido3Title">Pedido #ORD003 - 16:20</h3>
+                                        <div class="pedido-grid">
+                                            <!-- ZONA 1: CLIENTE -->
+                                            <div class="pedido-zona">
+                                                <h4>👤 Cliente</h4>
+                                                <div class="zona-content">
+                                                    <div class="cliente-info">
+                                                        <strong id="cliente3Nombre">Carlos López</strong>
+                                                        <p id="cliente3Telefono">+57 310 555 1234</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 2: MATERIALES -->
+                                            <div class="pedido-zona">
+                                                <h4>📦 Materiales</h4>
+                                                <div class="zona-content">
+                                                    <div class="materiales-info">
+                                                        <strong id="producto3Nombre">Desayunos Especiales</strong>
+                                                        <p id="producto3Personalizacion">Personalización: "Buenos días mi amor"</p>
+                                                        <div class="extras-list">
+                                                            <span class="extra-tag">🎈 Globo con helio</span>
+                                                            <span class="extra-tag">🧸 Peluchito</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 3: EMPLEADO -->
+                                            <div class="pedido-zona">
+                                                <h4>👨‍🍳 Asignar Empleados</h4>
+                                                <div class="zona-content">
+                                                    <select id="empleado3Select" class="empleado-select" multiple required>
+                                                        <option value="maria" data-icon="👩‍🍳">María García - Chef Principal</option>
+                                                        <option value="carlos" data-icon="👨‍🍳">Carlos López - Chef Especialista</option>
+                                                        <option value="ana" data-icon="��‍💼">Ana Rodríguez - Supervisora</option>
+                                                        <option value="luis" data-icon="👨‍💼">Luis Martínez - Coordinador</option>
+                                                        <option value="sofia" data-icon="👩‍🎨">Sofía Herrera - Decoradora</option>
+                                                    </select>
+                                                    <div class="instrucciones-seleccion">
+                                                        💡 Mantén presionado Ctrl (Cmd en Mac) y haz clic para seleccionar múltiples empleados
+                                                    </div>
+                                                    <div class="empleado-seleccionado" id="empleado3Seleccionado">
+                                                        <!-- Los empleados seleccionados aparecerán aquí -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <!-- COLUMNA DERECHA -->
+                            <div class="columna-derecha">
+                                <!-- GRUPO CLIENTE 3: Laura Méndez -->
+                                <div class="cliente-grupo" data-cliente="laura-mendez">
+                                    <div class="cliente-header">
+                                        <h2>👤 Cliente: Laura Méndez</h2>
+                                        <span class="pedidos-count">2 pedidos</span>
+                                    </div>
+                                    
+                                    <!-- PEDIDO 4 -->
+                                    <section class="section pedido-card-large" aria-labelledby="pedido4Title">
+                                        <h3 id="pedido4Title">Pedido #ORD004 - 17:10</h3>
+                                        <div class="pedido-grid">
+                                            <!-- ZONA 1: CLIENTE -->
+                                            <div class="pedido-zona">
+                                                <h4>👤 Cliente</h4>
+                                                <div class="zona-content">
+                                                    <div class="cliente-info">
+                                                        <strong id="cliente4Nombre">Laura Méndez</strong>
+                                                        <p id="cliente4Telefono">+57 302 789 4321</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 2: MATERIALES -->
+                                            <div class="pedido-zona">
+                                                <h4>📦 Materiales</h4>
+                                                <div class="zona-content">
+                                                    <div class="materiales-info">
+                                                        <strong id="producto4Nombre">Cesta de Frutas</strong>
+                                                        <p id="producto4Personalizacion">Personalización: "Para mi mamá"</p>
+                                                        <div class="extras-list">
+                                                            <span class="extra-tag">🎁 Caja de regalo</span>
+                                                            <span class="extra-tag">💌 Tarjeta personalizada</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 3: EMPLEADO -->
+                                            <div class="pedido-zona">
+                                                <h4>👨‍🍳 Asignar Empleados</h4>
+                                                <div class="zona-content">
+                                                    <select id="empleado4Select" class="empleado-select" multiple required>
+                                                        <option value="maria" data-icon="��‍🍳">María García - Chef Principal</option>
+                                                        <option value="carlos" data-icon="👨‍🍳">Carlos López - Chef Especialista</option>
+                                                        <option value="ana" data-icon="👩‍💼">Ana Rodríguez - Supervisora</option>
+                                                        <option value="luis" data-icon="👨‍💼">Luis Martínez - Coordinador</option>
+                                                        <option value="sofia" data-icon="👩‍🎨">Sofía Herrera - Decoradora</option>
+                                                    </select>
+                                                    <div class="instrucciones-seleccion">
+                                                        💡 Mantén presionado Ctrl (Cmd en Mac) y haz clic para seleccionar múltiples empleados
+                                                    </div>
+                                                    <div class="empleado-seleccionado" id="empleado4Seleccionado">
+                                                        <!-- Los empleados seleccionados aparecerán aquí -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!-- PEDIDO 5 -->
+                                    <section class="section pedido-card-large" aria-labelledby="pedido5Title">
+                                        <h3 id="pedido5Title">Pedido #ORD005 - 18:30</h3>
+                                        <div class="pedido-grid">
+                                            <!-- ZONA 1: CLIENTE -->
+                                            <div class="pedido-zona">
+                                                <h4>👤 Cliente</h4>
+                                                <div class="zona-content">
+                                                    <div class="cliente-info">
+                                                        <strong id="cliente5Nombre">Laura Méndez</strong>
+                                                        <p id="cliente5Telefono">+57 302 789 4321</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 2: MATERIALES -->
+                                            <div class="pedido-zona">
+                                                <h4>📦 Materiales</h4>
+                                                <div class="zona-content">
+                                                    <div class="materiales-info">
+                                                        <strong id="producto5Nombre">Arreglo Floral</strong>
+                                                        <p id="producto5Personalizacion">Personalización: "Gracias por todo"</p>
+                                                        <div class="extras-list">
+                                                            <span class="extra-tag">🎈 Globo con helio</span>
+                                                            <span class="extra-tag">🍫 Chocolates</span>
+                                                            <span class="extra-tag">🧸 Peluchito</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- ZONA 3: EMPLEADO -->
+                                            <div class="pedido-zona">
+                                                <h4>👨‍🍳 Asignar Empleados</h4>
+                                                <div class="zona-content">
+                                                    <select id="empleado5Select" class="empleado-select" multiple required>
+                                                        <option value="maria" data-icon="👩‍🍳">María García - Chef Principal</option>
+                                                        <option value="carlos" data-icon="👨‍🍳">Carlos López - Chef Especialista</option>
+                                                        <option value="ana" data-icon="👩‍💼">Ana Rodríguez - Supervisora</option>
+                                                        <option value="luis" data-icon="👨‍💼">Luis Martínez - Coordinador</option>
+                                                        <option value="sofia" data-icon="👩‍🎨">Sofía Herrera - Decoradora</option>
+                                                    </select>
+                                                    <div class="instrucciones-seleccion">
+                                                        💡 Mantén presionado Ctrl (Cmd en Mac) y haz clic para seleccionar múltiples empleados
+                                                    </div>
+                                                    <div class="empleado-seleccionado" id="empleado5Seleccionado">
+                                                        <!-- Los empleados seleccionados aparecerán aquí -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN ACCIONES -->
+                        <section class="section acciones-full">
+                            <div class="actions">
+                                <div class="summary" id="resumenProcesamiento" aria-live="polite">
+                                    Selecciona empleados para procesar los pedidos.
+                                </div>
+                                <div style="display: flex; gap: 8px; margin-left: 12px">
+                                    <button type="button" class="ghost" onclick="limpiarFormulario()">Limpiar Todo</button>
+                                    <button type="submit" class="primary" id="btnConfirmarProcesamiento">Confirmar Procesamiento</button>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/procesamiento.js" type="module"></script>
 </body>
 
-</html> <div class="field-row">
-                  <label for="metodoPago">Método de pago *</label>
-                  <select id="metodoPago" name="metodoPago" required>
-                    <option value="">-- Selecciona --</option>
-                    <option value="tranferencia">Transferencia Bancolombia</option>
-                    <option value="nequi">Efectivo (contra entrega)</option>
-                    <option value="transferencia">
-                      Transferencia / Nequi / Daviplata
-                    </option>
-                    <option value="paypal">PayPal</option>
-                  </select>
-                  <div
-                    class="error"
-                    id="err-metodoPago"
-                    aria-live="polite"
-                  ></div>
-                </div>
-              </div>
+</html>
