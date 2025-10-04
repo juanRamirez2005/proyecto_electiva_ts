@@ -4,26 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta http-equiv="refresh" content="3"/> -->
   <title>Sistema de Pedidos</title>
   <link rel="stylesheet" href="../styles/recepcion.css" />
-  <!-- <link rel="icon" href="./icono.jpeg" type="svg/x-icon"> -->
+  <link rel="icon" type="image/svg" href="../assets/icon.svg">
 </head>
 
 <body>
+
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <ul id="sidebar-list"></ul>
+  </aside>
+
   <div class="page-container">
 
     <!-- Main -->
-    <main class="main">
-      <section>
+    <main class="main" id="mainContent">
+      <section class="recepcion-header">
         <nav class="navegation">
-          <a href="../index.html">Home</a>
+          <a href="../../index.html">Home</a>
           <a href="./procesamiento.html">Procesamiento</a>
           <a href="./despacho.html">Despacho</a>
         </nav>
-
       </section>
 
-      <section>
+      <section class="recepcion-body">
+        <button id="menu-toggle" class="menu-btn">☰ Menú</button>
         <div class="container" role="main">
           <h1>Formulario de Pedido</h1>
           <p class="lead">
@@ -51,10 +59,36 @@
 
 
             </section>
+            <!-- SECCIÓN DESTINATARIO -->
+            <section class="section" aria-labelledby="destTitle">
+              <h2 id="destTitle">2. Datos del Destinatario</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="destNombre">Nombre del destinatario *</label>
+                  <input id="destNombre" name="destNombre" type="text" required />
+                  <div class="error" id="err-destNombre" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="destDireccion">Dirección del destinatario *</label>
+                  <input id="destDireccion" name="destDireccion" type="text" required />
+                  <div class="error" id="err-destDireccion" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="destTelefono">Teléfono del destinatario *</label>
+                  <input id="destTelefono" name="destTelefono" type="tel" required />
+                  <div class="error" id="err-destTelefono" aria-live="polite"></div>
+                </div>
+              </div>
+            </section>
 
             <!-- SECCIÓN PEDIDO -->
             <section class="section" aria-labelledby="pedidoTitle">
-              <h2 id="pedidoTitle">2. Detalles del Pedido</h2>
+
+              <div id="resumenPedidos"></div>
+
+              <h2 id="pedidoTitle">3. Detalles del Pedido</h2>
               <div class="grid">
                 <div class="field-row">
                   <label for="producto">Nombre de producto *</label>
@@ -72,7 +106,7 @@
 
                 <div class="field-row">
                   <!-- Lista dinámica de extras añadidos -->
-                  <ul id="extrasList"></ul>
+
                   <label>Opciones extras</label>
                   <div class="extras-selector">
                     <select id="extraSelect">
@@ -88,6 +122,10 @@
                     <button type="button" id="addExtraBtn">Agregar</button>
                   </div>
 
+                </div>
+
+                <div class="field-row">
+                  <ul id="extrasList"></ul>
                 </div>
                 <div class="field-row">
                   <label for="de">De: *</label>
@@ -137,51 +175,30 @@
                   <textarea id="observaciones" name="observaciones"
                     placeholder="Instrucciones para el domiciliario"></textarea>
                 </div>
-              </div>
-
-            </section>
-
-
-            <!-- SECCIÓN DESTINATARIO -->
-            <section class="section" aria-labelledby="destTitle">
-              <h2 id="destTitle">3. Datos del Destinatario</h2>
-              <div class="grid">
                 <div class="field-row">
-                  <label for="destNombre">Nombre del destinatario *</label>
-                  <input id="destNombre" name="destNombre" type="text" required />
-                  <div class="error" id="err-destNombre" aria-live="polite"></div>
                 </div>
-
-                <div class="field-row">
-                  <label for="destDireccion">Dirección del destinatario *</label>
-                  <input id="destDireccion" name="destDireccion" type="text" required />
-                  <div class="error" id="err-destDireccion" aria-live="polite"></div>
-                </div>
-
-                <div class="field-row">
-                  <label for="destTelefono">Teléfono del destinatario *</label>
-                  <input id="destTelefono" name="destTelefono" type="tel" required />
-                  <div class="error" id="err-destTelefono" aria-live="polite"></div>
-                </div>
-
 
                 <div class="actions">
-                  <div class="summary" id="miniSummary" aria-live="polite">
-                    Resumen: sin datos.
-                  </div>
                   <div style="display: flex; gap: 8px; margin-left: 12px">
-                    <button type="reset" class="ghost">Limpiar</button>
-                    <button type="submit" class="primary">Enviar Pedido</button>
-                    <button type="button" class="primary" onclick="verTirilla()">Ver Tirilla</button>
+                    <button type="reset" class="danger">Limpiar</button>
+                    <button type="button" class="ghost" onclick="verTirilla()">Ver Tirilla</button>
+                    <button type="button" class="secundary" id="btnAgregarPedido">Agregar Pedido</button>
+                    <button type="button" class="primary">Enviar Pedido</button>
                   </div>
                 </div>
               </div>
+            </section>
           </div>
+        </div>
+      </section>
+
+      <section class="recepcion-side-info--pedido">
+
+      </section>
     </main>
   </div>
 
-  <script src="../js/recepcion.js" type="module"></script>
-  <script src="tirilla/tirilla.js" type="module"></script>
+  <script src="../js/recepcion/app.js" type="module"></script>
 </body>
 
 </html>
