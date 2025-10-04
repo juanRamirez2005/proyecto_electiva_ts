@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración de Horarios</title>
+  <link rel="stylesheet" href="../styles/recepcion.css" />
+  <link rel="icon" type="image/svg" href="../assets/icon.svg">
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- Main -->
+    <main class="main">
+      <section>
+        <nav class="navegation">
+          <a href="../../index.html">Home</a>
+          <a href="./recepcion.html">Recepción</a>
+          <a href="./procesamiento.html">Procesamiento</a>
+          <a href="./despacho.html">Despacho</a>
+          <a href="./historial.html">Historial</a>
+        </nav>
+      </section>
+
+      <section>
+        <div class="container" role="main">
+          <h1>Configuración de Horarios</h1>
+          <p class="lead">
+            Gestiona los horarios de trabajo de los empleados y configura los turnos disponibles.
+          </p>
+
+          <div id="horariosForm" novalidate>
+            <!-- SECCIÓN HORARIOS GENERALES -->
+            <section class="section" aria-labelledby="horariosGeneralesTitle">
+              <h2 id="horariosGeneralesTitle">1. Horarios Generales del Negocio</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="horaApertura">Hora de apertura *</label>
+                  <input id="horaApertura" name="horaApertura" type="time" value="08:00" required />
+                  <div class="error" id="err-horaApertura" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="horaCierre">Hora de cierre *</label>
+                  <input id="horaCierre" name="horaCierre" type="time" value="20:00" required />
+                  <div class="error" id="err-horaCierre" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="diasLaborales">Días laborales *</label>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="diasLaborales" value="lunes" checked> Lunes</label>
+                    <label><input type="checkbox" name="diasLaborales" value="martes" checked> Martes</label>
+                    <label><input type="checkbox" name="diasLaborales" value="miercoles" checked> Miércoles</label>
+                    <label><input type="checkbox" name="diasLaborales" value="jueves" checked> Jueves</label>
+                    <label><input type="checkbox" name="diasLaborales" value="viernes" checked> Viernes</label>
+                    <label><input type="checkbox" name="diasLaborales" value="sabado" checked> Sábado</label>
+                    <label><input type="checkbox" name="diasLaborales" value="domingo"> Domingo</label>
+                  </div>
+                  <div class="error" id="err-diasLaborales" aria-live="polite"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN TURNOS DE EMPLEADOS -->
+            <section class="section" aria-labelledby="turnosEmpleadosTitle">
+              <h2 id="turnosEmpleadosTitle">2. Turnos de Empleados</h2>
+              
+              <!-- EMPLEADO 1 -->
+              <div class="empleado-horario">
+                <div class="empleado-header">
+                  <h3>👩‍🍳 María García - Chef Principal</h3>
+                  <button type="button" class="btn-toggle" onclick="toggleEmpleado('maria')">Configurar</button>
+                </div>
+                <div class="empleado-config" id="config-maria" style="display: none;">
+                  <div class="grid">
+                    <div class="field-row">
+                      <label for="maria-lunes">Lunes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-lunes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-lunes-fin" value="16:00" />
+                        <label><input type="checkbox" id="maria-lunes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-martes">Martes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-martes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-martes-fin" value="16:00" />
+                        <label><input type="checkbox" id="maria-martes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-miercoles">Miércoles</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-miercoles-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-miercoles-fin" value="16:00" />
+                        <label><input type="checkbox" id="maria-miercoles-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-jueves">Jueves</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-jueves-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-jueves-fin" value="16:00" />
+                        <label><input type="checkbox" id="maria-jueves-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-viernes">Viernes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-viernes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-viernes-fin" value="16:00" />
+                        <label><input type="checkbox" id="maria-viernes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-sabado">Sábado</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-sabado-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-sabado-fin" value="15:00" />
+                        <label><input type="checkbox" id="maria-sabado-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="maria-domingo">Domingo</label>
+                      <div class="horario-dia">
+                        <input type="time" id="maria-domingo-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="maria-domingo-fin" value="14:00" />
+                        <label><input type="checkbox" id="maria-domingo-libre" checked> Libre</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EMPLEADO 2 -->
+              <div class="empleado-horario">
+                <div class="empleado-header">
+                  <h3>👨‍🍳 Carlos López - Chef Especialista</h3>
+                  <button type="button" class="btn-toggle" onclick="toggleEmpleado('carlos')">Configurar</button>
+                </div>
+                <div class="empleado-config" id="config-carlos" style="display: none;">
+                  <div class="grid">
+                    <div class="field-row">
+                      <label for="carlos-lunes">Lunes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-lunes-inicio" value="12:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-lunes-fin" value="20:00" />
+                        <label><input type="checkbox" id="carlos-lunes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-martes">Martes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-martes-inicio" value="12:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-martes-fin" value="20:00" />
+                        <label><input type="checkbox" id="carlos-martes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-miercoles">Miércoles</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-miercoles-inicio" value="12:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-miercoles-fin" value="20:00" />
+                        <label><input type="checkbox" id="carlos-miercoles-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-jueves">Jueves</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-jueves-inicio" value="12:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-jueves-fin" value="20:00" />
+                        <label><input type="checkbox" id="carlos-jueves-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-viernes">Viernes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-viernes-inicio" value="12:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-viernes-fin" value="20:00" />
+                        <label><input type="checkbox" id="carlos-viernes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-sabado">Sábado</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-sabado-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-sabado-fin" value="18:00" />
+                        <label><input type="checkbox" id="carlos-sabado-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="carlos-domingo">Domingo</label>
+                      <div class="horario-dia">
+                        <input type="time" id="carlos-domingo-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="carlos-domingo-fin" value="14:00" />
+                        <label><input type="checkbox" id="carlos-domingo-libre" checked> Libre</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EMPLEADO 3 -->
+              <div class="empleado-horario">
+                <div class="empleado-header">
+                  <h3>👩‍💼 Ana Rodríguez - Supervisora</h3>
+                  <button type="button" class="btn-toggle" onclick="toggleEmpleado('ana')">Configurar</button>
+                </div>
+                <div class="empleado-config" id="config-ana" style="display: none;">
+                  <div class="grid">
+                    <div class="field-row">
+                      <label for="ana-lunes">Lunes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-lunes-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-lunes-fin" value="17:00" />
+                        <label><input type="checkbox" id="ana-lunes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-martes">Martes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-martes-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-martes-fin" value="17:00" />
+                        <label><input type="checkbox" id="ana-martes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-miercoles">Miércoles</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-miercoles-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-miercoles-fin" value="17:00" />
+                        <label><input type="checkbox" id="ana-miercoles-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-jueves">Jueves</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-jueves-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-jueves-fin" value="17:00" />
+                        <label><input type="checkbox" id="ana-jueves-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-viernes">Viernes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-viernes-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-viernes-fin" value="17:00" />
+                        <label><input type="checkbox" id="ana-viernes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-sabado">Sábado</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-sabado-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-sabado-fin" value="16:00" />
+                        <label><input type="checkbox" id="ana-sabado-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="ana-domingo">Domingo</label>
+                      <div class="horario-dia">
+                        <input type="time" id="ana-domingo-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="ana-domingo-fin" value="14:00" />
+                        <label><input type="checkbox" id="ana-domingo-libre" checked> Libre</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EMPLEADO 4 -->
+              <div class="empleado-horario">
+                <div class="empleado-header">
+                  <h3>👨‍💼 Luis Martínez - Coordinador</h3>
+                  <button type="button" class="btn-toggle" onclick="toggleEmpleado('luis')">Configurar</button>
+                </div>
+                <div class="empleado-config" id="config-luis" style="display: none;">
+                  <div class="grid">
+                    <div class="field-row">
+                      <label for="luis-lunes">Lunes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-lunes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-lunes-fin" value="16:00" />
+                        <label><input type="checkbox" id="luis-lunes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-martes">Martes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-martes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-martes-fin" value="16:00" />
+                        <label><input type="checkbox" id="luis-martes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-miercoles">Miércoles</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-miercoles-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-miercoles-fin" value="16:00" />
+                        <label><input type="checkbox" id="luis-miercoles-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-jueves">Jueves</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-jueves-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-jueves-fin" value="16:00" />
+                        <label><input type="checkbox" id="luis-jueves-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-viernes">Viernes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-viernes-inicio" value="08:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-viernes-fin" value="16:00" />
+                        <label><input type="checkbox" id="luis-viernes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-sabado">Sábado</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-sabado-inicio" value="09:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-sabado-fin" value="15:00" />
+                        <label><input type="checkbox" id="luis-sabado-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="luis-domingo">Domingo</label>
+                      <div class="horario-dia">
+                        <input type="time" id="luis-domingo-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="luis-domingo-fin" value="14:00" />
+                        <label><input type="checkbox" id="luis-domingo-libre" checked> Libre</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EMPLEADO 5 -->
+              <div class="empleado-horario">
+                <div class="empleado-header">
+                  <h3>👩‍🎨 Sofía Herrera - Decoradora</h3>
+                  <button type="button" class="btn-toggle" onclick="toggleEmpleado('sofia')">Configurar</button>
+                </div>
+                <div class="empleado-config" id="config-sofia" style="display: none;">
+                  <div class="grid">
+                    <div class="field-row">
+                      <label for="sofia-lunes">Lunes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-lunes-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-lunes-fin" value="18:00" />
+                        <label><input type="checkbox" id="sofia-lunes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-martes">Martes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-martes-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-martes-fin" value="18:00" />
+                        <label><input type="checkbox" id="sofia-martes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-miercoles">Miércoles</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-miercoles-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-miercoles-fin" value="18:00" />
+                        <label><input type="checkbox" id="sofia-miercoles-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-jueves">Jueves</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-jueves-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-jueves-fin" value="18:00" />
+                        <label><input type="checkbox" id="sofia-jueves-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-viernes">Viernes</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-viernes-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-viernes-fin" value="18:00" />
+                        <label><input type="checkbox" id="sofia-viernes-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-sabado">Sábado</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-sabado-inicio" value="11:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-sabado-fin" value="17:00" />
+                        <label><input type="checkbox" id="sofia-sabado-libre"> Libre</label>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="sofia-domingo">Domingo</label>
+                      <div class="horario-dia">
+                        <input type="time" id="sofia-domingo-inicio" value="10:00" />
+                        <span>a</span>
+                        <input type="time" id="sofia-domingo-fin" value="14:00" />
+                        <label><input type="checkbox" id="sofia-domingo-libre" checked> Libre</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN CONFIGURACIONES ESPECIALES -->
+            <section class="section" aria-labelledby="configEspecialesTitle">
+              <h2 id="configEspecialesTitle">3. Configuraciones Especiales</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="tiempoMinimoPedido">Tiempo mínimo para pedidos (horas) *</label>
+                  <input id="tiempoMinimoPedido" name="tiempoMinimoPedido" type="number" value="2" min="1" max="24" required />
+                  <div class="note">Tiempo mínimo de anticipación para procesar un pedido</div>
+                  <div class="error" id="err-tiempoMinimoPedido" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="capacidadMaxima">Capacidad máxima de pedidos por día *</label>
+                  <input id="capacidadMaxima" name="capacidadMaxima" type="number" value="50" min="1" max="200" required />
+                  <div class="note">Número máximo de pedidos que se pueden procesar en un día</div>
+                  <div class="error" id="err-capacidadMaxima" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="horarioEmergencia">Horario de emergencia</label>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="emergencia" value="habilitado"> Habilitar pedidos de emergencia</label>
+                  </div>
+                  <div class="note">Permite procesar pedidos fuera del horario normal con costo adicional</div>
+                </div>
+
+                <div class="field-row">
+                  <label for="costoEmergencia">Costo adicional por emergencia (%)</label>
+                  <input id="costoEmergencia" name="costoEmergencia" type="number" value="25" min="0" max="100" />
+                  <div class="note">Porcentaje adicional que se cobra por pedidos de emergencia</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN ACCIONES -->
+            <section class="section">
+              <div class="actions">
+                <div class="summary" id="resumenHorarios" aria-live="polite">
+                  Configura los horarios de trabajo y guarda los cambios.
+                </div>
+                <div style="display: flex; gap: 8px; margin-left: 12px">
+                  <button type="button" class="ghost" onclick="limpiarFormulario()">Limpiar</button>
+                  <button type="button" class="ghost" onclick="aplicarHorarioEstandar()">Aplicar Horario Estándar</button>
+                  <button type="submit" class="primary" id="btnGuardarHorarios">Guardar Configuración</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/horarios.js" type="module"></script>
+</body>
+
+</html>
