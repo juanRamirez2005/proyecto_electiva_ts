@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Inventario</title>
+  <link rel="stylesheet" href="../styles/inventario.css" />
+  <link rel="icon" type="image/svg" href="../assets/icon.svg">
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <ul id="sidebar-list"></ul>
+  </aside>
+
+  <div class="page-container">
+
+    <!-- Main -->
+    <main class="main" id="mainContent">
+      <section class="inventario-header">
+        <nav class="navegation">
+          <a href="../../index.html">Home</a>
+          <a href="./recepcion.html">Recepción</a>
+          <a href="./procesamiento.html">Procesamiento</a>
+          <a href="./despacho.html">Despacho</a>
+        </nav>
+      </section>
+
+      <section class="inventario-body">
+        <button id="menu-toggle" class="menu-btn">☰ Menú</button>
+        <div class="container" role="main">
+          <h1>Gestión de Inventario</h1>
+
+          <div id="inventoryForm" novalidate>
+            <!-- SECCIÓN AGREGAR PRODUCTO -->
+            <section class="section" aria-labelledby="productoTitle">
+              <h2 id="productoTitle">1. Agregar Nuevo Producto</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="productoNombre">Nombre del producto *</label>
+                  <input id="productoNombre" name="productoNombre" type="text" required autocomplete="off" />
+                  <div class="error" id="err-productoNombre" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="productoDescripcion">Descripción</label>
+                  <textarea id="productoDescripcion" name="productoDescripcion" 
+                    placeholder="Descripción del producto"></textarea>
+                </div>
+
+                <div class="field-row">
+                  <label for="productoCategoria">Categoría *</label>
+                  <select id="productoCategoria" name="productoCategoria" required>
+                    <option value="">-- Selecciona categoría --</option>
+                    <option value="flores">Flores</option>
+                    <option value="arreglos">Arreglos</option>
+                    <option value="plantas">Plantas</option>
+                    <option value="accesorios">Accesorios</option>
+                    <option value="regalos">Regalos</option>
+                  </select>
+                  <div class="error" id="err-productoCategoria" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="productoPrecio">Precio unitario *</label>
+                  <input id="productoPrecio" name="productoPrecio" type="number" step="0.01" min="0" required />
+                  <div class="error" id="err-productoPrecio" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="productoStockInicial">Stock inicial *</label>
+                  <input id="productoStockInicial" name="productoStockInicial" type="number" min="0" required />
+                  <div class="error" id="err-productoStockInicial" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="productoStockMinimo">Stock mínimo</label>
+                  <input id="productoStockMinimo" name="productoStockMinimo" type="number" min="0" value="0" />
+                  <div class="note">Cantidad mínima antes de alerta de stock bajo</div>
+                </div>
+
+                <div class="actions">
+                  <div style="display: flex; gap: 8px; margin-left: 12px">
+                    <button type="reset" class="danger">Limpiar</button>
+                    <button type="button" class="primary" id="btnAgregarProducto">Agregar Producto</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN GESTIÓN DE STOCK -->
+            <section class="section" aria-labelledby="stockTitle">
+              <h2 id="stockTitle">2. Gestión de Stock</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="productoSeleccionado">Producto a modificar *</label>
+                  <select id="productoSeleccionado" name="productoSeleccionado" required>
+                    <option value="">-- Selecciona producto --</option>
+                  </select>
+                  <div class="error" id="err-productoSeleccionado" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="tipoMovimiento">Tipo de movimiento *</label>
+                  <select id="tipoMovimiento" name="tipoMovimiento" required>
+                    <option value="">-- Selecciona tipo --</option>
+                    <option value="entrada">Entrada (Aumentar stock)</option>
+                    <option value="salida">Salida (Disminuir stock)</option>
+                    <option value="ajuste">Ajuste (Corregir cantidad)</option>
+                  </select>
+                  <div class="error" id="err-tipoMovimiento" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="cantidadMovimiento">Cantidad *</label>
+                  <input id="cantidadMovimiento" name="cantidadMovimiento" type="number" min="0" required />
+                  <div class="error" id="err-cantidadMovimiento" aria-live="polite"></div>
+                </div>
+
+                <div class="field-row">
+                  <label for="motivoMovimiento">Motivo del movimiento</label>
+                  <textarea id="motivoMovimiento" name="motivoMovimiento" 
+                    placeholder="Ej: Compra de proveedor, Venta, Ajuste de inventario, etc."></textarea>
+                </div>
+
+                <div class="actions">
+                  <div style="display: flex; gap: 8px; margin-left: 12px">
+                    <button type="button" class="secundary" id="btnConsultarStock">Consultar Stock</button>
+                    <button type="button" class="primary" id="btnActualizarStock">Actualizar Stock</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN BÚSQUEDA Y FILTROS -->
+            <section class="section" aria-labelledby="busquedaTitle">
+              <h2 id="busquedaTitle">3. Búsqueda y Filtros</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="buscarProducto">Buscar producto</label>
+                  <input id="buscarProducto" name="buscarProducto" type="text" 
+                    placeholder="Nombre del producto..." />
+                </div>
+
+                <div class="field-row">
+                  <label for="filtroCategoria">Filtrar por categoría</label>
+                  <select id="filtroCategoria" name="filtroCategoria">
+                    <option value="">-- Todas las categorías --</option>
+                    <option value="flores">Flores</option>
+                    <option value="arreglos">Arreglos</option>
+                    <option value="plantas">Plantas</option>
+                    <option value="accesorios">Accesorios</option>
+                    <option value="regalos">Regalos</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="filtroStock">Filtrar por stock</label>
+                  <select id="filtroStock" name="filtroStock">
+                    <option value="">-- Todos los productos --</option>
+                    <option value="bajo">Stock bajo</option>
+                    <option value="agotado">Agotado</option>
+                    <option value="disponible">Disponible</option>
+                  </select>
+                </div>
+
+                <div class="actions">
+                  <div style="display: flex; gap: 8px; margin-left: 12px">
+                    <button type="button" class="ghost" id="btnLimpiarFiltros">Limpiar Filtros</button>
+                    <button type="button" class="secundary" id="btnBuscar">Buscar</button>
+                    <button type="button" class="primary" id="btnExportarInventario">Exportar Inventario</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="inventario-side-info--productos">
+        <!-- Sidebar de resumen del inventario -->
+        <div class="sidebar-inventario">
+          <h3>Resumen del Inventario</h3>
+          
+          <!-- Estadísticas generales -->
+          <div class="resumen-estadisticas">
+            <div class="stat-card">
+              <div class="stat-number" id="totalProductos">0</div>
+              <div class="stat-label">Total Productos</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="totalStock">0</div>
+              <div class="stat-label">Stock Total</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="valorInventario">$0</div>
+              <div class="stat-label">Valor Inventario</div>
+            </div>
+          </div>
+
+          <!-- Productos con stock bajo -->
+          <div class="resumen-stock-bajo">
+            <h4>⚠️ Stock Bajo</h4>
+            <div id="listaStockBajo" class="lista-productos">
+              <p class="sin-productos">No hay productos con stock bajo</p>
+            </div>
+          </div>
+
+          <!-- Productos agotados -->
+          <div class="resumen-stock-agotado">
+            <h4>🚫 Agotados</h4>
+            <div id="listaStockAgotado" class="lista-productos">
+              <p class="sin-productos">No hay productos agotados</p>
+            </div>
+          </div>
+
+          <!-- Categorías -->
+          <div class="resumen-categorias">
+            <h4>📂 Por Categoría</h4>
+            <div id="listaCategorias" class="lista-categorias">
+              <!-- Se llenará dinámicamente -->
+            </div>
+          </div>
+
+          <!-- Movimientos recientes -->
+          <div class="resumen-movimientos">
+            <h4>📈 Movimientos Recientes</h4>
+            <div id="listaMovimientos" class="lista-movimientos">
+              <p class="sin-productos">No hay movimientos recientes</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal para mostrar detalles del producto -->
+  <div id="productoModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3 id="modalTitulo">Detalles del Producto</h3>
+      <div id="modalContenido"></div>
+    </div>
+  </div>
+
+  <!-- Tabla de inventario -->
+  <div id="tablaInventario" class="tabla-container" style="display: none;">
+    <h3>Inventario Actual</h3>
+    <div class="tabla-wrapper">
+      <table id="tablaProductos" class="tabla-inventario">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Stock</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaProductosBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../js/inventario/inventario.js" type="module"></script>
+</body>
+
+</html>
