@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Empleados</title>
+  <link rel="stylesheet" href="../styles/recepcion.css" />
+  <link rel="icon" type="image/svg" href="../assets/icon.svg">
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- Main -->
+    <main class="main">
+      <section>
+        <nav class="navegation">
+          <a href="../../index.html">Home</a>
+          <a href="./recepcion.html">Recepción</a>
+          <a href="./procesamiento.html">Procesamiento</a>
+          <a href="./despacho.html">Despacho</a>
+          <a href="./horarios.html">Horarios</a>
+          <a href="./historial.html">Historial</a>
+        </nav>
+      </section>
+
+      <section>
+        <div class="container" role="main">
+          <h1>Gestión de Empleados</h1>
+          <p class="lead">
+            Administra la información de los empleados y personaliza sus iconos de perfil.
+          </p>
+
+          <div id="empleadosForm" novalidate>
+            <!-- SECCIÓN AGREGAR EMPLEADO -->
+            <section class="section" aria-labelledby="agregarTitle">
+              <h2 id="agregarTitle">1. Agregar Nuevo Empleado</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="nombreEmpleado">Nombre Completo</label>
+                  <input id="nombreEmpleado" name="nombreEmpleado" type="text" required placeholder="Ej: María García López" />
+                </div>
+
+                <div class="field-row">
+                  <label for="cargoEmpleado">Cargo</label>
+                  <input id="cargoEmpleado" name="cargoEmpleado" type="text" required placeholder="Ej: Chef Principal" />
+                </div>
+
+                <div class="field-row">
+                  <label for="emailEmpleado">Email</label>
+                  <input id="emailEmpleado" name="emailEmpleado" type="email" required placeholder="maria.garcia@empresa.com" />
+                </div>
+
+                <div class="field-row">
+                  <label for="telefonoEmpleado">Teléfono</label>
+                  <input id="telefonoEmpleado" name="telefonoEmpleado" type="tel" required placeholder="+57 300 123 4567" />
+                </div>
+
+                <div class="field-row">
+                  <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                  <input id="fechaNacimiento" name="fechaNacimiento" type="date" required />
+                </div>
+
+                <div class="field-row">
+                  <label for="fechaIngreso">Fecha de Ingreso</label>
+                  <input id="fechaIngreso" name="fechaIngreso" type="date" required />
+                </div>
+
+                <div class="field-row">
+                  <label for="salarioEmpleado">Salario</label>
+                  <input id="salarioEmpleado" name="salarioEmpleado" type="number" step="0.01" required placeholder="2500000" />
+                </div>
+
+                <div class="field-row">
+                  <label for="estadoEmpleado">Estado</label>
+                  <select id="estadoEmpleado" name="estadoEmpleado" required>
+                    <option value="">-- Seleccionar estado --</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                    <option value="vacaciones">Vacaciones</option>
+                    <option value="licencia">Licencia</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="departamentoEmpleado">Departamento</label>
+                  <select id="departamentoEmpleado" name="departamentoEmpleado" required>
+                    <option value="">-- Seleccionar departamento --</option>
+                    <option value="cocina">Cocina</option>
+                    <option value="atencion">Atención al Cliente</option>
+                    <option value="administracion">Administración</option>
+                    <option value="entrega">Entrega</option>
+                    <option value="decoracion">Decoración</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="turnoEmpleado">Turno</label>
+                  <select id="turnoEmpleado" name="turnoEmpleado" required>
+                    <option value="">-- Seleccionar turno --</option>
+                    <option value="matutino">Matutino (6:00 - 14:00)</option>
+                    <option value="vespertino">Vespertino (14:00 - 22:00)</option>
+                    <option value="nocturno">Nocturno (22:00 - 6:00)</option>
+                    <option value="mixto">Mixto</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="notasEmpleado">Notas Adicionales</label>
+                  <textarea id="notasEmpleado" name="notasEmpleado" rows="3" placeholder="Información adicional sobre el empleado..."></textarea>
+                </div>
+
+                <div class="field-row">
+                  <div class="button-container">
+                    <button type="button" class="primary" onclick="agregarEmpleado()">Agregar Empleado</button>
+                    <button type="button" class="ghost" onclick="limpiarFormulario()">Limpiar Formulario</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN ICONOS -->
+            <section class="section" aria-labelledby="iconosTitle">
+              <h2 id="iconosTitle">2. Personalizar Iconos de Empleados</h2>
+              <p class="note">Selecciona un empleado y elige su icono personalizado.</p>
+              
+              <div class="iconos-container">
+                <div class="empleado-selector">
+                  <label for="empleadoSelector">Seleccionar Empleado:</label>
+                  <select id="empleadoSelector" onchange="cargarEmpleadoSeleccionado()">
+                    <option value="">-- Seleccionar empleado --</option>
+                  </select>
+                </div>
+
+                <div class="icono-preview" id="iconoPreview" style="display: none;">
+                  <div class="preview-header">
+                    <h3>Vista Previa</h3>
+                    <div class="preview-empleado">
+                      <div class="preview-avatar" id="previewAvatar">👤</div>
+                      <div class="preview-info">
+                        <h4 id="previewNombre">Nombre Empleado</h4>
+                        <p id="previewCargo">Cargo</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="iconos-grid" id="iconosGrid">
+                  <!-- Los iconos se cargarán dinámicamente -->
+                </div>
+
+                <div class="icono-actions" id="iconoActions" style="display: none;">
+                  <button type="button" class="primary" onclick="guardarIcono()">Guardar Icono</button>
+                  <button type="button" class="ghost" onclick="cancelarSeleccion()">Cancelar</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN LISTA DE EMPLEADOS -->
+            <section class="section" aria-labelledby="listaTitle">
+              <h2 id="listaTitle">3. Lista de Empleados</h2>
+              
+              <div class="empleados-filtros">
+                <div class="filtro-row">
+                  <div class="filtro-item">
+                    <label for="filtroDepartamento">Departamento:</label>
+                    <select id="filtroDepartamento" onchange="filtrarEmpleados()">
+                      <option value="">Todos</option>
+                      <option value="cocina">Cocina</option>
+                      <option value="atencion">Atención al Cliente</option>
+                      <option value="administracion">Administración</option>
+                      <option value="entrega">Entrega</option>
+                      <option value="decoracion">Decoración</option>
+                    </select>
+                  </div>
+                  <div class="filtro-item">
+                    <label for="filtroEstado">Estado:</label>
+                    <select id="filtroEstado" onchange="filtrarEmpleados()">
+                      <option value="">Todos</option>
+                      <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
+                      <option value="vacaciones">Vacaciones</option>
+                      <option value="licencia">Licencia</option>
+                    </select>
+                  </div>
+                  <div class="filtro-item">
+                    <label for="busquedaEmpleado">Buscar:</label>
+                    <input id="busquedaEmpleado" type="text" placeholder="Nombre, cargo, email..." oninput="filtrarEmpleados()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="empleados-lista" id="empleadosLista">
+                <!-- Los empleados se cargarán dinámicamente -->
+              </div>
+            </section>
+
+            <!-- SECCIÓN ESTADÍSTICAS -->
+            <section class="section" aria-labelledby="estadisticasTitle">
+              <h2 id="estadisticasTitle">4. Estadísticas de Empleados</h2>
+              <div class="estadisticas-empleados" id="estadisticasEmpleados">
+                <!-- Las estadísticas se cargarán dinámicamente -->
+              </div>
+            </section>
+
+            <!-- SECCIÓN ACCIONES -->
+            <section class="section">
+              <div class="actions">
+                <div class="summary" id="resumenEmpleados" aria-live="polite">
+                  Sistema de gestión de empleados listo. Agrega empleados y personaliza sus iconos.
+                </div>
+                <div style="display: flex; gap: 8px; margin-left: 12px">
+                  <button type="button" class="ghost" onclick="exportarEmpleados()">Exportar Lista</button>
+                  <button type="button" class="ghost" onclick="importarEmpleados()">Importar Empleados</button>
+                  <button type="button" class="primary" onclick="actualizarLista()">Actualizar Lista</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/empleados.js" type="module"></script>
+  <script src="../js/autoreload.js"></script>
+</body>
+
+</html>

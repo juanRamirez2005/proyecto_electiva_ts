@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Empleados</title>
+  <link rel="stylesheet" href="../styles/recepcion.css" />
+  <link rel="icon" type="image/svg" href="../assets/icon.svg">
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- Main -->
+    <main class="main">
+      <section>
+        <nav class="navegation">
+          <a href="../../index.html">Home</a>
+          <a href="./recepcion.html">Recepción</a>
+          <a href="./procesamiento.html">Procesamiento</a>
+          <a href="./despacho.html">Despacho</a>
+          <a href="./horarios.html">Horarios</a>
+          <a href="./empleados.html">Empleados</a>
+        </nav>
+      </section>
+
+      <section>
+        <div class="container" role="main">
+          <h1>Historial de Acciones de Empleados</h1>
+          <p class="lead">
+            Consulta el historial de actividades y acciones realizadas por cada empleado.
+          </p>
+
+          <div id="historialForm" novalidate>
+            <!-- SECCIÓN FILTROS -->
+            <section class="section" aria-labelledby="filtrosTitle">
+              <h2 id="filtrosTitle">1. Filtros de Búsqueda</h2>
+              <div class="grid">
+                <div class="field-row">
+                  <label for="empleadoFiltro">Empleado</label>
+                  <select id="empleadoFiltro" name="empleadoFiltro">
+                    <option value="">-- Todos los empleados --</option>
+                    <option value="maria">👩‍🍳 María García - Chef Principal</option>
+                    <option value="carlos">👨‍🍳 Carlos López - Chef Especialista</option>
+                    <option value="ana">👩‍💼 Ana Rodríguez - Supervisora</option>
+                    <option value="luis">👨‍💼 Luis Martínez - Coordinador</option>
+                    <option value="sofia">👩‍🎨 Sofía Herrera - Decoradora</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="tipoAccion">Tipo de Acción</label>
+                  <select id="tipoAccion" name="tipoAccion">
+                    <option value="">-- Todas las acciones --</option>
+                    <option value="procesamiento">Procesamiento de Pedidos</option>
+                    <option value="entrega">Entrega de Pedidos</option>
+                    <option value="configuracion">Configuración</option>
+                    <option value="login">Inicio de Sesión</option>
+                    <option value="error">Errores</option>
+                  </select>
+                </div>
+
+                <div class="field-row">
+                  <label for="fechaDesde">Fecha desde</label>
+                  <input id="fechaDesde" name="fechaDesde" type="date" />
+                </div>
+
+                <div class="field-row">
+                  <label for="fechaHasta">Fecha hasta</label>
+                  <input id="fechaHasta" name="fechaHasta" type="date" />
+                </div>
+
+                <div class="field-row">
+                  <label for="busquedaTexto">Búsqueda por texto</label>
+                  <input id="busquedaTexto" name="busquedaTexto" type="text" placeholder="Buscar en descripción..." />
+                </div>
+
+                <div class="field-row">
+                  <div class="button-container">
+                    <button type="button" class="primary" onclick="aplicarFiltros()">Aplicar Filtros</button>
+                    <button type="button" class="ghost" onclick="limpiarFiltros()">Limpiar</button>
+                    <button type="button" class="ghost" onclick="exportarHistorial()">Exportar</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN RESUMEN -->
+            <section class="section" aria-labelledby="resumenTitle">
+              <h2 id="resumenTitle">2. Resumen de Actividad</h2>
+              <div class="resumen-grid">
+                <div class="resumen-card">
+                  <div class="resumen-icon">📊</div>
+                  <div class="resumen-content">
+                    <h3>Total de Acciones</h3>
+                    <p id="totalAcciones">0</p>
+                  </div>
+                </div>
+                <div class="resumen-card">
+                  <div class="resumen-icon">👥</div>
+                  <div class="resumen-content">
+                    <h3>Empleados Activos</h3>
+                    <p id="empleadosActivos">0</p>
+                  </div>
+                </div>
+                <div class="resumen-card">
+                  <div class="resumen-icon">✅</div>
+                  <div class="resumen-content">
+                    <h3>Acciones Exitosas</h3>
+                    <p id="accionesExitosas">0</p>
+                  </div>
+                </div>
+                <div class="resumen-card">
+                  <div class="resumen-icon">❌</div>
+                  <div class="resumen-content">
+                    <h3>Errores</h3>
+                    <p id="totalErrores">0</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECCIÓN HISTORIAL -->
+            <section class="section" aria-labelledby="historialTitle">
+              <h2 id="historialTitle">3. Historial de Acciones</h2>
+              
+              <!-- CONTROLES DE PAGINACIÓN -->
+              <div class="historial-controls">
+                <div class="pagination-info">
+                  <span id="paginationInfo">Mostrando 0 de 0 acciones</span>
+                </div>
+                <div class="pagination-controls">
+                  <button type="button" class="btn-pagination" onclick="cambiarPagina(-1)" id="btnAnterior" disabled>← Anterior</button>
+                  <span id="paginaActual">1</span>
+                  <button type="button" class="btn-pagination" onclick="cambiarPagina(1)" id="btnSiguiente" disabled>Siguiente →</button>
+                </div>
+              </div>
+
+              <!-- LISTA DE ACCIONES -->
+              <div class="historial-lista" id="historialLista">
+                <!-- Las acciones se cargarán dinámicamente aquí -->
+              </div>
+
+              <!-- PLANTILLA DE ACCIÓN (oculta) -->
+              <template id="accionTemplate">
+                <div class="accion-item">
+                  <div class="accion-header">
+                    <div class="accion-empleado">
+                      <div class="empleado-avatar" id="accionAvatar">👤</div>
+                      <div class="empleado-info">
+                        <h4 id="accionNombre">Nombre Empleado</h4>
+                        <p id="accionCargo">Cargo</p>
+                      </div>
+                    </div>
+                    <div class="accion-meta">
+                      <span class="accion-fecha" id="accionFecha">2024-01-15</span>
+                      <span class="accion-hora" id="accionHora">14:30</span>
+                    </div>
+                  </div>
+                  <div class="accion-content">
+                    <div class="accion-tipo">
+                      <span class="tipo-badge" id="accionTipo">Procesamiento</span>
+                      <span class="estado-badge" id="accionEstado">Exitoso</span>
+                    </div>
+                    <div class="accion-descripcion">
+                      <h5>Descripción:</h5>
+                      <p id="accionDescripcion">Descripción de la acción realizada...</p>
+                    </div>
+                    <div class="accion-detalles" id="accionDetalles" style="display: none;">
+                      <h5>Detalles:</h5>
+                      <div class="detalles-content" id="detallesContent">
+                        <!-- Detalles específicos de la acción -->
+                      </div>
+                    </div>
+                    <div class="accion-actions">
+                      <button type="button" class="btn-detalles" onclick="toggleDetalles(this)">Ver Detalles</button>
+                      <button type="button" class="btn-exportar" onclick="exportarAccion(this)">Exportar</button>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </section>
+
+            <!-- SECCIÓN ESTADÍSTICAS -->
+            <section class="section" aria-labelledby="estadisticasTitle">
+              <h2 id="estadisticasTitle">4. Estadísticas por Empleado</h2>
+              <div class="estadisticas-grid" id="estadisticasGrid">
+                <!-- Las estadísticas se cargarán dinámicamente aquí -->
+              </div>
+            </section>
+
+            <!-- SECCIÓN ACCIONES -->
+            <section class="section">
+              <div class="actions">
+                <div class="summary" id="resumenHistorial" aria-live="polite">
+                  Historial cargado. Usa los filtros para buscar acciones específicas.
+                </div>
+                <div style="display: flex; gap: 8px; margin-left: 12px">
+                  <button type="button" class="ghost" onclick="limpiarFiltros()">Limpiar Filtros</button>
+                  <button type="button" class="ghost" onclick="generarReporte()">Generar Reporte</button>
+                  <button type="button" class="primary" onclick="actualizarHistorial()">Actualizar</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/historial.js" type="module"></script>
+  <script src="../js/autoreload.js"></script>
+</body>
+
+</html>
