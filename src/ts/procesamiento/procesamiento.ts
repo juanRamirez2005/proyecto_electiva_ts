@@ -9,7 +9,7 @@ export class ProcesamientoPedidos {
 
     constructor() {
         this.initializeElements();
-    }     
+    }      
 
     /**
      * Inicializa los elementos del DOM necesarios
