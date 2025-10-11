@@ -14,6 +14,7 @@ import { Pedido } from "./recepcion/components/Pedido.js";
 import { Adicional } from "./recepcion/components/Adicional.js";
 import { verTirilla } from "./despacho/tirilla.js";
 import { DetallePedido } from "./recepcion/components/DetallePedido.js";
+import { guardarTarjeta } from "./recepcion/tarjetaStorage.js";
 export class Recepcion {
     constructor() {
         this.pedidos = [];
@@ -41,6 +42,13 @@ export class Recepcion {
             const cliente = document.getElementById("clienteNombre").value;
             const destinatario = document.getElementById("destNombre").value;
             this.detallePedido.agregarPedido(pedido, cliente, destinatario);
+            // guardar tarjeta en localStorage
+            const para = document.getElementById("para").value;
+            const de = document.getElementById("de").value;
+            const mensaje = document.getElementById("tarjeta").value;
+            if (para && de && mensaje) {
+                guardarTarjeta(para, de, mensaje);
+            }
             this.limpiarCamposPedido();
         });
         // control de cantidad de extras

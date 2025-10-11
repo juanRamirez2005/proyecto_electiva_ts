@@ -1,3 +1,4 @@
+
 body {
   font-family: Arial, sans-serif;
   background: #f5f6fa;
@@ -135,4 +136,23 @@ body {
 .navigation a:hover {
   background: #3b82f6;
   color: #fff;
+}
+
+.btnImprimirTarjetas {
+  background-color: #d97fa3;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btnImprimirTarjetas:hover {
+  background-color: #c76f92;
+}
+
+.contenedorTarjetas {
+  display: none; /* solo se muestra al imprimir */
 }

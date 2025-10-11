@@ -152,11 +152,25 @@
         <label for="nota-ord001">Nota:</label>
         <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
       </div>
+
+    
       <div class="acciones">
         <button class="btn btn-eliminar">Eliminar</button>
         <button class="btn btn-cambiar-estado">Cambiar Estado</button>
       </div>
+
+      <div style="text-align:center; margin-top: 30px;">
+        <button id="btnImprimirTarjetas" class="btn btn-imprimir-tarjetas">Imprimir Tarjetas</button>
+      </div>
+
+      <div id="contenedorTarjetas"></div>
+
+      <script type="module" src="../ts/despacho/imprimirTarjetas.js"></script>
+      <script src="acciones.js"></script>
+
+
     </div>
+    
   </div>
 
   <script src="acciones.js"></script>
