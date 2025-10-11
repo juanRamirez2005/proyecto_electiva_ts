@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo AutoReload - TypeScript</title>
+    <style>
+        /* Estilos para el componente AutoReload */
+        .autoreload-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .autoreload-toggle {
+            width: 50px;
+            height: 50px;
+            background: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .autoreload-toggle:hover {
+            background: #e5e7eb;
+            transform: scale(1.05);
+        }
+
+        .autoreload-toggle.active {
+            background: #10b981;
+            border-color: #059669;
+            color: white;
+        }
+
+        .autoreload-toggle.active:hover {
+            background: #059669;
+        }
+
+        .autoreload-icon {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .autoreload-toggle.active .autoreload-icon {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .autoreload-status {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .autoreload-status.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .autoreload-timer {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .autoreload-timer.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .autoreload-timer.warning {
+            background: #f59e0b;
+        }
+
+        .autoreload-timer.danger {
+            background: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .autoreload-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 0.5rem 0;
+            min-width: 150px;
+            z-index: 1001;
+        }
+
+        .autoreload-menu-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.9rem;
+            color: #374151;
+        }
+
+        .autoreload-menu-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .autoreload-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1002;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Estilos para la página demo */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-section h2 {
+            margin-top: 0;
+            color: #fbbf24;
+            font-size: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✅";
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .status-info {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .status-info h3 {
+            margin-top: 0;
+            color: #10b981;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: rgba(251, 191, 36, 0.2);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 AutoReload TypeScript</h1>
+        
+        <div class="demo-section">
+            <h2>Características del Componente</h2>
+            <ul class="feature-list">
+                <li>Recarga automática configurable (15s a 10min)</li>
+                <li>Interfaz visual intuitiva con iconos</li>
+                <li>Countdown visual con colores de advertencia</li>
+                <li>Persistencia de configuración en localStorage</li>
+                <li>Pausa automática cuando la página pierde foco</li>
+                <li>Notificaciones temporales de estado</li>
+                <li>Menú contextual para cambiar intervalos</li>
+                <li>Tipado fuerte con TypeScript</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>Controles de Demostración</h2>
+            <div class="controls">
+                <button class="btn" onclick="toggleAutoReload()">Activar/Desactivar</button>
+                <button class="btn" onclick="setInterval10s()">10 segundos</button>
+                <button class="btn" onclick="setInterval15s()">15 segundos</button>
+                <button class="btn" onclick="setInterval30s()">30 segundos</button>
+                <button class="btn" onclick="setInterval1min()">1 minuto</button>
+                <button class="btn" onclick="setInterval5min()">5 minutos</button>
+                <button class="btn" onclick="setInterval30min()">30 minutos</button>
+                <button class="btn" onclick="setCustomTime()">Tiempo Personalizado</button>
+                <button class="btn" onclick="showStatus()">Mostrar Estado</button>
+                <button class="btn" onclick="reloadPage()">Recargar Página</button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Estado Actual</h2>
+            <div class="status-info">
+                <h3>Información del AutoReload</h3>
+                <p><strong>Estado:</strong> <span id="currentStatus">Cargando...</span></p>
+                <p><strong>Intervalo:</strong> <span id="currentInterval">Cargando...</span></p>
+                <p><strong>Tiempo restante:</strong> <span id="timeRemaining">-</span></p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Uso en TypeScript</h2>
+            <div class="code-block">
+<pre><code>// Importar la clase
+import { AutoReload } from './autoreload/autoreload';
+
+// Crear instancia
+const autoReload = new AutoReload();
+
+// Controlar programáticamente
+autoReload.toggleAutoReload();
+autoReload.setInterval(60000); // 1 minuto
+autoReload.setIntervalSeconds(30); // 30 segundos
+autoReload.setIntervalMinutes(5); // 5 minutos
+autoReload.setCustomInterval(); // Tiempo personalizado
+autoReload.stopAutoReload();
+
+// Obtener estado
+const isActive = autoReload.getIsActive();
+const interval = autoReload.getIntervalTime();</code></pre>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Instrucciones de Uso</h2>
+            <ul class="feature-list">
+                <li><strong>Click izquierdo</strong> en el icono: Activar/Desactivar</li>
+                <li><strong>Click derecho</strong> en el icono: Cambiar intervalo</li>
+                <li><strong>Hover</strong> sobre el icono: Ver estado actual</li>
+                <li>El componente se pausa automáticamente cuando cambias de pestaña</li>
+                <li>La configuración se guarda automáticamente</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        // Importar la clase AutoReload desde TypeScript compilado
+        import { AutoReload } from '../js/autoreload/autoreload.js';
+        
+        // Crear instancia global
+        window.autoReloadInstance = new AutoReload();
+        
+        // Funciones de demostración
+        window.toggleAutoReload = () => {
+            window.autoReloadInstance.toggleAutoReload();
+            updateStatus();
+        };
+        
+        window.setInterval10s = () => {
+            window.autoReloadInstance.setIntervalSeconds(10);
+            updateStatus();
+        };
+        
+        window.setInterval15s = () => {
+            window.autoReloadInstance.setIntervalSeconds(15);
+            updateStatus();
+        };
+        
+        window.setInterval30s = () => {
+            window.autoReloadInstance.setIntervalSeconds(30);
+            updateStatus();
+        };
+        
+        window.setInterval1min = () => {
+            window.autoReloadInstance.setIntervalMinutes(1);
+            updateStatus();
+        };
+        
+        window.setInterval5min = () => {
+            window.autoReloadInstance.setIntervalMinutes(5);
+            updateStatus();
+        };
+        
+        window.setInterval30min = () => {
+            window.autoReloadInstance.setIntervalMinutes(30);
+            updateStatus();
+        };
+        
+        window.setCustomTime = () => {
+            window.autoReloadInstance.setCustomInterval();
+            updateStatus();
+        };
+        
+        window.showStatus = () => {
+            const status = window.autoReloadInstance.getIsActive() ? 'Activo' : 'Inactivo';
+            const interval = window.autoReloadInstance.getIntervalTime() / 1000;
+            alert(`Estado: ${status}\nIntervalo: ${interval} segundos`);
+        };
+        
+        window.reloadPage = () => {
+            window.location.reload();
+        };
+        
+        function updateStatus() {
+            const statusElement = document.getElementById('currentStatus');
+            const intervalElement = document.getElementById('currentInterval');
+            
+            if (statusElement && intervalElement) {
+                const isActive = window.autoReloadInstance.getIsActive();
+                const interval = window.autoReloadInstance.getIntervalTime() / 1000;
+                
+                statusElement.textContent = isActive ? 'Activo' : 'Inactivo';
+                statusElement.style.color = isActive ? '#10b981' : '#ef4444';
+                
+                intervalElement.textContent = `${interval} segundos`;
+            }
+        }
+        
+        // Actualizar estado cada segundo
+        setInterval(updateStatus, 1000);
+        
+        // Actualizar estado inicial
+        updateStatus();
+    </script>
+</body>
+</html>
