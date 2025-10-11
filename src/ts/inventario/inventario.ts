@@ -20,7 +20,7 @@ interface Movimiento {
   productoNombre: string;
 }
 
-type TipoMensaje = 'success' | 'error';
+type TipoMensaje = 'exito' | 'error';
 type TipoMovimiento = 'entrada' | 'salida' | 'ajuste';
 
 class InventarioManager {
@@ -207,7 +207,7 @@ class InventarioManager {
     this.actualizarResumenSidebar();
     this.limpiarFormulario('inventoryForm');
     
-    this.mostrarMensaje('Producto agregado exitosamente', 'success');
+    this.mostrarMensaje('Producto agregado exitosamente', 'exito');
   }
 
   private validarFormularioStock(): boolean {
@@ -322,7 +322,7 @@ class InventarioManager {
     this.actualizarResumenSidebar();
     this.limpiarFormulario('inventoryForm');
     
-    this.mostrarMensaje(`Stock actualizado: ${tipoOperacion} de ${cantidad} unidades`, 'success');
+    this.mostrarMensaje(`Stock actualizado: ${tipoOperacion} de ${cantidad} unidades`, 'exito');
   }
 
   // Consultar stock
@@ -649,7 +649,7 @@ class InventarioManager {
     }
 
     console.log('🎉 Producto actualizado exitosamente');
-    this.mostrarMensaje('Producto actualizado exitosamente', 'success');
+    this.mostrarMensaje('Producto actualizado exitosamente', 'exito');
   }
 
   // Eliminar producto
@@ -660,7 +660,7 @@ class InventarioManager {
       this.cargarProductosEnSelect();
       this.mostrarInventario();
       this.actualizarResumenSidebar();
-      this.mostrarMensaje('Producto eliminado exitosamente', 'success');
+      this.mostrarMensaje('Producto eliminado exitosamente', 'exito');
     }
   }
 
@@ -843,7 +843,7 @@ class InventarioManager {
       color: white;
       font-weight: 500;
       z-index: 3000;
-      background-color: ${tipo === 'success' ? '#10b981' : '#ef4444'};
+      background-color: ${tipo === 'exito' ? '#10b981' : '#ef4444'};
     `;
 
     document.body.appendChild(mensajeDiv);
