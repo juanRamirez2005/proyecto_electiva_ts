@@ -1,6 +1,6 @@
-import { Tarjeta } from "despacho/Tarjeta.js"; // importa tu clase
+import { Tarjeta } from "despacho/Tarjeta.js"; 
 
-// Guarda la tarjeta en localStorage
+
 export function guardarTarjeta(para: string, de: string, mensaje: string): void {
   const tarjetas = JSON.parse(localStorage.getItem("tarjetas") || "[]");
 
