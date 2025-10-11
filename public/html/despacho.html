@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Pedidos</title>
-  <link rel="stylesheet" href="../styles/despacho_style.css""" />
+  <link rel="stylesheet" href="../styles/despacho_style.css" />
   <link rel="icon" type="image/svg" href="../assets/icon.svg">
 </head>
 
@@ -15,24 +15,37 @@
     <a href="../../index.html">Home</a>
     <a href="./recepcion.html">Recepción</a>
     <a href="./procesamiento.html">Procesamiento</a>
+    <a href="./horarios.html">Horarios</a>
+    <a href="./historial.html">Historial</a>
+    <a href="./empleados.html">Empleados</a>
   </nav>
 
   <h1>Lista de Pedidos</h1>
 
   <div class="pedidos-container">
 
+    <!-- Pedido 1 -->
     <div class="pedido">
       <div class="pedido-header">
-        <h3>Pedido #ORD001</h3>
+        <h3>Pedido 1 #ORD001</h3>
         <span class="status pending">Pendiente</span>
       </div>
-      <p>Cliente:<br><strong>María García</strong><br><small>+57 300 123 4567</small></p>
-      <p>Producto:<br><strong>Chocolates Fresas</strong></p>
-      <p>Destinatario:<br><strong>Ana García</strong><br><small>+57 301 987 6543</small></p>
-      <p>Entrega:<br><strong>2024-01-20 - 15:00</strong></p>
+      <p id="cliente-ord001"> Cliente:<br /><strong>María García</strong><br /><small>+57 300 123 4567</small> </p>
+      <p id="producto-ord001">
+        Producto:<br /><strong>Chocolates Fresas</strong>
+      </p>
+      <p id="destinatario-ord001">
+        Destinatario:<br /><strong>Ana García</strong><br /><small>+57 301 987 6543</small>
+      </p>
+      <p id="direccion-ord001">
+        Dirección de entrega:<br /><strong>Calle 15 #18-22, Barrio La Castellana, Armenia</strong>
+      </p>
+      <p id="fecha-ord001">
+        Fecha Entrega:<br /><strong>2024-01-20 - 15:00</strong>
+      </p>
       <div class="pedido-footer">
-        <span class="precio">$45,000</span>
-        <small>2024-01-15</small>
+        <span class="precio" id="precio-ord001">$45,000</span>
+        <small id="fecha-creacion-ord001">2024-01-15</small>
       </div>
       <div class="nota">
         <label for="nota-ord001">Nota:</label>
@@ -41,123 +54,160 @@
       <div class="acciones">
         <button class="btn btn-eliminar">Eliminar</button>
         <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+        <button class="btn btn-ver-tirilla" onclick="verTirilla('ord001')">
+          Ver Tirilla
+        </button>
       </div>
     </div>
 
+    <!-- Pedido 2 -->
     <div class="pedido">
       <div class="pedido-header">
-        <h3>Pedido #ORD002</h3>
+        <h3>Pedido 2 #ORD002</h3>
         <span class="status pending">Pendiente</span>
       </div>
-      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
-      <p>Producto:<br><strong>Desayunos</strong></p>
-      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
-      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+      <p id="cliente-ord002">
+        Cliente:<br /><strong>Carlos López</strong><br /><small>+57 310 555 1234</small>
+      </p>
+      <p id="producto-ord002">Producto:<br /><strong>Desayunos</strong></p>
+      <p id="destinatario-ord002">
+        Destinatario:<br /><strong>Patricia López</strong><br /><small>+57 320 111 2233</small>
+      </p>
+      <p id="direccion-ord002">
+        Dirección de entrega:<br /><strong>Carrera 19 #23-45, Barrio El Prado, Armenia</strong>
+      </p>
+      <p id="fecha-ord002">
+        Fecha Entrega:<br /><strong>2024-01-18 - 08:00</strong>
+      </p>
       <div class="pedido-footer">
-        <span class="precio">$35,000</span>
-        <small>2024-01-14</small>
+        <span class="precio" id="precio-ord002">$35,000</span>
+        <small id="fecha-creacion-ord002">2024-01-14</small>
       </div>
       <div class="nota">
-        <label for="nota-ord001">Nota:</label>
-        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
+        <label for="nota-ord002">Nota:</label>
+        <textarea id="nota-ord002" placeholder="Observaciones del despacho"></textarea>
       </div>
       <div class="acciones">
         <button class="btn btn-eliminar">Eliminar</button>
         <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+        <button class="btn btn-ver-tirilla" onclick="verTirilla('ord002')">
+          Ver Tirilla
+        </button>
       </div>
     </div>
 
-    <div class="pedido">
-      <div class="pedido-header">
-        <h3>Pedido #ORD002</h3>
-        <span class="status delivered">Entregado</span>
-      </div>
-      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
-      <p>Producto:<br><strong>Desayunos</strong></p>
-      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
-      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
-      <div class="pedido-footer">
-        <span class="precio">$35,000</span>
-        <small>2024-01-14</small>
-      </div>
-      <div class="nota">
-        <label for="nota-ord001">Nota:</label>
-        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
-      </div>
-      <div class="acciones">
-        <button class="btn btn-eliminar">Eliminar</button>
-        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
-      </div>
-    </div>
 
-    <div class="pedido">
-      <div class="pedido-header">
-        <h3>Pedido #ORD002</h3>
-        <span class="status delivered">Entregado</span>
-      </div>
-      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
-      <p>Producto:<br><strong>Desayunos</strong></p>
-      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
-      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
-      <div class="pedido-footer">
-        <span class="precio">$35,000</span>
-        <small>2024-01-14</small>
-      </div>
-      <div class="nota">
-        <label for="nota-ord001">Nota:</label>
-        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
-      </div>
-      <div class="acciones">
-        <button class="btn btn-eliminar">Eliminar</button>
-        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
-      </div>
-    </div>
 
-    <div class="pedido">
-      <div class="pedido-header">
-        <h3>Pedido #ORD002</h3>
-        <span class="status pending">Pendiente</span>
-      </div>
-      <p>Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
-      <p>Producto:<br><strong>Desayunos</strong></p>
-      <p>Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
-      <p>Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
-      <div class="pedido-footer">
-        <span class="precio">$35,000</span>
-        <small>2024-01-14</small>
-      </div>
-      <div class="nota">
-        <label for="nota-ord001">Nota:</label>
-        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
-      </div>
-      <div class="acciones">
-        <button class="btn btn-eliminar">Eliminar</button>
-        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
-      </div>
-    </div>
-    <div class="pedido">
-      <div class="pedido-header">
-        <h3>Pedido #ORD003</h3>
-        <span class="status delivered">Entregado</span>
-      </div>
-      <p>Cliente:<br><strong>Laura Méndez</strong><br><small>+57 302 789 4321</small></p>
-      <p>Producto:<br><strong>Ramo de Rosas</strong></p>
-      <p>Destinatario:<br><strong>Julio Ramírez</strong><br><small>+57 311 222 7788</small></p>
-      <p>Entrega:<br><strong>2024-01-10 - 18:30</strong></p>
-      <div class="pedido-footer">
-        <span class="precio">$60,000</span>
-        <small>2024-01-08</small>
-      </div>
-      <div class="nota">
-        <label for="nota-ord001">Nota:</label>
-        <textarea id="nota-ord001" placeholder="Observaciones del despacho"></textarea>
-      </div>
+    <script src="acciones.js"></script>
+    <script src="../js/autoreload.js"></script>
+</body>
+
+</html>
+
+<!-- Pedido 3 -->
+<div class="pedido">
+  <div class="pedido-header">
+    <h3>Pedido 3 #ORD003</h3>
+    <span class="status delivered">Entregado</span>
+  </div>
+  <p id="cliente-ord003">Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+  <p id="producto-ord003">Producto:<br><strong>Desayunos</strong></p>
+  <p id="destinatario-ord003">Destinatario:<br><strong>Patricia López</strong><br><small>+57 320 111 2233</small></p>
+  <p id="direccion-ord003">Dirección de entrega:<br><strong>Calle 9 #13-28, Barrio La Clarita, Armenia</strong></p>
+  <p id="fecha-ord003">Fecha Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+  <div class="pedido-footer">
+    <span class="precio" id="precio-ord003">$35,000</span>
+    <small id="fecha-creacion-ord003">2024-01-14</small>
+  </div>
+  <div class="nota">
+    <label for="nota-ord003">Nota:</label>
+    <textarea id="nota-ord003" placeholder="Observaciones del despacho"></textarea>
+  </div>
+  <div class="acciones">
+    <button class="btn btn-eliminar">Eliminar</button>
+    <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+    <button class="btn btn-ver-tirilla" onclick="verTirilla('ord003')">Ver Tirilla</button>
+  </div>
+</div>
+
+<!-- Pedido 4 -->
+<div class="pedido">
+  <div class="pedido-header">
+    <h3>Pedido 4 #ORD004</h3>
+    <span class="status delivered">Entregado</span>
+  </div>
+  <p id="cliente-ord004">Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+  <p id="producto-ord004">Producto:<br><strong>Desayunos</strong></p>
+  <p id="destinatario-ord004">Destinatario:<br><strong>Monica López</strong><br><small>+57 320 111 2233</small></p>
+  <p id="direccion-ord004">Dirección de entrega:<br><strong>Carrera 22 #36-17, Barrio Los Álamos, Armenia</strong></p>
+  <p id="fecha-ord004">Fecha Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+  <div class="pedido-footer">
+    <span class="precio" id="precio-ord004">$35,000</span>
+    <small id="fecha-creacion-ord004">2024-01-14</small>
+  </div>
+  <div class="nota">
+    <label for="nota-ord004">Nota:</label>
+    <textarea id="nota-ord004" placeholder="Observaciones del despacho"></textarea>
+  </div>
+  <div class="acciones">
+    <button class="btn btn-eliminar">Eliminar</button>
+    <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+    <button class="btn btn-ver-tirilla" onclick="verTirilla('ord004')">Ver Tirilla</button>
+  </div>
+</div>
+
+<!-- Pedido 5 -->
+<div class="pedido">
+  <div class="pedido-header">
+    <h3>Pedido 5 #ORD005</h3>
+    <span class="status pending">Pendiente</span>
+  </div>
+  <p id="cliente-ord005">Cliente:<br><strong>Carlos López</strong><br><small>+57 310 555 1234</small></p>
+  <p id="producto-ord005">Producto:<br><strong>Desayunos</strong></p>
+  <p id="destinatario-ord005">Destinatario:<br><strong>Ester López</strong><br><small>+57 320 111 2233</small></p>
+  <p id="direccion-ord005">Dirección de entrega:<br><strong>Calle 2 #25-09, Barrio El Paraíso, Armenia</strong></p>
+  <p id="fecha-ord005">Fecha Entrega:<br><strong>2024-01-18 - 08:00</strong></p>
+  <div class="pedido-footer">
+    <span class="precio" id="precio-ord005">$35,000</span>
+    <small id="fecha-creacion-ord005">2024-01-14</small>
+  </div>
+  <div class="nota">
+    <label for="nota-ord005">Nota:</label>
+    <textarea id="nota-ord005" placeholder="Observaciones del despacho"></textarea>
+  </div>
+  <div class="acciones">
+    <button class="btn btn-eliminar">Eliminar</button>
+    <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+    <button class="btn btn-ver-tirilla" onclick="verTirilla('ord005')">Ver Tirilla</button>
+  </div>
+</div>
+
+<!-- Pedido 6 -->
+<div class="pedido">
+  <div class="pedido-header">
+    <h3>Pedido 6 #ORD006</h3>
+    <span class="status delivered">Entregado</span>
+  </div>
+  <p id="cliente-ord006">Cliente:<br><strong>Laura Méndez</strong><br><small>+57 302 789 4321</small></p>
+  <p id="producto-ord006">Producto:<br><strong>Ramo de Rosas</strong></p>
+  <p id="destinatario-ord006">Destinatario:<br><strong>Julio Ramírez</strong><br><small>+57 311 222 7788</small></p>
+  <p id="direccion-ord006">Dirección de entrega:<br><strong>Carrera 14 #40-55, Barrio La Lorena</strong></p>
+  <p id="fecha-ord006">Fecha Entrega:<br><strong>2024-01-10 - 18:30</strong></p>
+  <div class="pedido-footer">
+    <span class="precio" id="precio-ord006">$60,000</span>
+    <small id="fecha-creacion-ord006">2024-01-08</small>
+  </div>
+  <div class="nota">
+    <label for="nota-ord006">Nota:</label>
+    <textarea id="nota-ord006" placeholder="Observaciones del despacho"></textarea>
+  </div>
 
     
-      <div class="acciones">
-        <button class="btn btn-eliminar">Eliminar</button>
-        <button class="btn btn-cambiar-estado">Cambiar Estado</button>
-      </div>
+  <div class="acciones">
+    <button class="btn btn-eliminar">Eliminar</button>
+    <button class="btn btn-cambiar-estado">Cambiar Estado</button>
+    <button class="btn btn-ver-tirilla" onclick="verTirilla('ord006')">Ver Tirilla</button>
+  </div>
 
       <div style="text-align:center; margin-top: 30px;">
         <button id="btnImprimirTarjetas" class="btn btn-imprimir-tarjetas">Imprimir Tarjetas</button>
@@ -169,11 +219,15 @@
       <script src="acciones.js"></script>
 
 
-    </div>
+</div>
     
-  </div>
+</div>
 
+   
+  <script src="../js/despacho/tirilla.js" type="module"></script>
   <script src="acciones.js"></script>
+  <script src="../js/autoreload.js"></script>
+
 </body>
 
 </html>
