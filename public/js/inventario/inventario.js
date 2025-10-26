@@ -159,7 +159,7 @@ class InventarioManager {
         this.mostrarInventario();
         this.actualizarResumenSidebar();
         this.limpiarFormulario('inventoryForm');
-        this.mostrarMensaje('Producto agregado exitosamente', 'success');
+        this.mostrarMensaje('Producto agregado exitosamente', 'exito');
     }
     validarFormularioStock() {
         const productoSeleccionado = document.getElementById('productoSeleccionado');
@@ -261,7 +261,7 @@ class InventarioManager {
         this.mostrarInventario();
         this.actualizarResumenSidebar();
         this.limpiarFormulario('inventoryForm');
-        this.mostrarMensaje(`Stock actualizado: ${tipoOperacion} de ${cantidad} unidades`, 'success');
+        this.mostrarMensaje(`Stock actualizado: ${tipoOperacion} de ${cantidad} unidades`, 'exito');
     }
     // Consultar stock
     consultarStock() {
@@ -546,7 +546,7 @@ class InventarioManager {
             newBtn.onclick = () => this.agregarProducto();
         }
         console.log('🎉 Producto actualizado exitosamente');
-        this.mostrarMensaje('Producto actualizado exitosamente', 'success');
+        this.mostrarMensaje('Producto actualizado exitosamente', 'exito');
     }
     // Eliminar producto
     eliminarProducto(id) {
@@ -556,7 +556,7 @@ class InventarioManager {
             this.cargarProductosEnSelect();
             this.mostrarInventario();
             this.actualizarResumenSidebar();
-            this.mostrarMensaje('Producto eliminado exitosamente', 'success');
+            this.mostrarMensaje('Producto eliminado exitosamente', 'exito');
         }
     }
     // Actualizar resumen del sidebar
@@ -716,7 +716,7 @@ class InventarioManager {
       color: white;
       font-weight: 500;
       z-index: 3000;
-      background-color: ${tipo === 'success' ? '#10b981' : '#ef4444'};
+      background-color: ${tipo === 'exito' ? '#10b981' : '#ef4444'};
     `;
         document.body.appendChild(mensajeDiv);
         setTimeout(() => {
