@@ -1,4 +1,4 @@
-import { Tarjeta } from "despacho/Tarjeta.js"; 
+import { Tarjeta } from "../despacho/Tarjeta.js"; 
 
 
 export function guardarTarjeta(para: string, de: string, mensaje: string): void {
