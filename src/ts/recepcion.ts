@@ -10,6 +10,7 @@ import { Destinatario } from "./recepcion/components/Destinatario.js";
 import { Pedido } from "./recepcion/components/Pedido.js";
 import { Adicional } from "./recepcion/components/Adicional.js";
 import { DetallePedido } from "./recepcion/components/DetallePedido.js";
+import { guardarTarjeta } from "./recepcion/tarjetaStorage.js";
 
 export class Recepcion {
   private form: HTMLDivElement | null;
@@ -44,6 +45,15 @@ export class Recepcion {
       const destinatario = (document.getElementById("destNombre") as HTMLInputElement).value;
 
       this.detallePedido.agregarPedido(pedido, cliente, destinatario);
+
+      // guardar tarjeta en localStorage
+      const para = (document.getElementById("para") as HTMLInputElement).value;
+      const de = (document.getElementById("de") as HTMLInputElement).value;
+      const mensaje = (document.getElementById("tarjeta") as HTMLTextAreaElement).value;
+
+      if (para && de && mensaje) {
+        guardarTarjeta(para, de, mensaje);
+      }
 
       this.limpiarCamposPedido();
     });
