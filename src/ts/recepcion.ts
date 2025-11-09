@@ -11,12 +11,14 @@ import { Pedido } from "./recepcion/components/Pedido.js";
 import { Adicional } from "./recepcion/components/Adicional.js";
 import { DetallePedido } from "./recepcion/components/DetallePedido.js";
 import { guardarTarjeta } from "./recepcion/tarjetaStorage.js";
+import { Contador } from "./contador.js";
 
 export class Recepcion {
   private form: HTMLDivElement | null;
   private pedidos: Pedido[] = [];
   private coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
   private detallePedido = new DetallePedido();
+  private contador = new Contador();
 
   constructor() {
     this.form = document.getElementById("orderForm") as HTMLDivElement | null;
@@ -39,6 +41,24 @@ export class Recepcion {
 
       const pedido = this.construirPedido();
       this.pedidos.unshift(pedido);
+
+      
+      this.contador.incrementar();
+      const idOrd = "ORD" + ("000" + this.contador.getValor()).slice(-3);
+
+      localStorage.setItem(idOrd, JSON.stringify({
+        id: idOrd,
+        cliente: {
+          nombre: (document.getElementById("clienteNombre") as HTMLInputElement).value,
+          telefono: (document.getElementById("clienteTelefono") as HTMLInputElement).value
+        },
+        destinatario: {
+          nombre: (document.getElementById("destNombre") as HTMLInputElement).value,
+          telefono: (document.getElementById("destTelefono") as HTMLInputElement).value,
+          direccion: (document.getElementById("destDireccion") as HTMLInputElement).value
+        },
+        pedido: pedido
+    }));
 
       // usar nombre del cliente y destinatario para el detalle
       const cliente = (document.getElementById("clienteNombre") as HTMLInputElement).value;

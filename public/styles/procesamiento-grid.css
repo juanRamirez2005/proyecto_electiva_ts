@@ -1,0 +1,34 @@
+/* ================================================
+   CSS ESPECÍFICO PARA GRID DE 2 COLUMNAS
+   ================================================ */
+
+/* Contenedor principal con grid de 2 columnas */
+.pedidos-grid-dos-columnas {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+}
+
+/* Cuando solo hay 1 pedido, centrarlo */
+.pedidos-grid-dos-columnas:has(.pedido-card-large:only-child) {
+  grid-template-columns: 1fr !important;
+  max-width: 50% !important;
+  margin: 0 auto !important;
+}
+
+/* Tarjetas directamente en el grid */
+.pedido-dos-col {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Responsive: 1 columna en pantallas pequeñas */
+@media (max-width: 1200px) {
+  .pedidos-grid-dos-columnas {
+    grid-template-columns: 1fr !important;
+  }
+}

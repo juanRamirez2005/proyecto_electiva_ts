@@ -14,11 +14,13 @@ import { Pedido } from "./recepcion/components/Pedido.js";
 import { Adicional } from "./recepcion/components/Adicional.js";
 import { DetallePedido } from "./recepcion/components/DetallePedido.js";
 import { guardarTarjeta } from "./recepcion/tarjetaStorage.js";
+import { Contador } from "./contador.js";
 export class Recepcion {
     constructor() {
         this.pedidos = [];
         this.coordenadasNegocio = { lat: 4.52491, lon: -75.69787 };
         this.detallePedido = new DetallePedido();
+        this.contador = new Contador();
         this.form = document.getElementById("orderForm");
         this.inicializarEventos();
         this.setProductoSelector();
@@ -37,6 +39,21 @@ export class Recepcion {
                 return;
             const pedido = this.construirPedido();
             this.pedidos.unshift(pedido);
+            this.contador.incrementar();
+            const idOrd = "ORD" + ("000" + this.contador.getValor()).slice(-3);
+            localStorage.setItem(idOrd, JSON.stringify({
+                id: idOrd,
+                cliente: {
+                    nombre: document.getElementById("clienteNombre").value,
+                    telefono: document.getElementById("clienteTelefono").value
+                },
+                destinatario: {
+                    nombre: document.getElementById("destNombre").value,
+                    telefono: document.getElementById("destTelefono").value,
+                    direccion: document.getElementById("destDireccion").value
+                },
+                pedido: pedido
+            }));
             // usar nombre del cliente y destinatario para el detalle
             const cliente = document.getElementById("clienteNombre").value;
             const destinatario = document.getElementById("destNombre").value;

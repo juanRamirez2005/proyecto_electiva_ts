@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procesamiento de Pedidos</title>
     <link rel="stylesheet" href="../styles/recepcion.css" />
-    <title>Procesamiento de Pedidos</title>
-    <link rel="stylesheet" href="../styles/recepcion.css" />
+    <link rel="stylesheet" href="../styles/procesamiento-grid.css?v=100" />
     <link rel="icon" type="image/svg" href="../assets/icon.svg">
 </head>
 
@@ -37,8 +36,13 @@
                     </p>
 
                     <div id="procesamientoForm" novalidate>
-                        <!-- LAYOUT DE DOS COLUMNAS -->
-                        <div class="pedidos-layout">
+                        <!-- CONTENEDOR DINÁMICO DE PEDIDOS -->
+                        <div id="pedidos-container">
+                            <!-- Los pedidos se cargarán aquí automáticamente desde localStorage -->
+                        </div>
+                        
+                        <!-- LAYOUT DE DOS COLUMNAS (CONTENIDO ESTÁTICO DE EJEMPLO - SE PUEDE OCULTAR O ELIMINAR) -->
+                        <div class="pedidos-layout" style="display: none;">
                             <!-- COLUMNA IZQUIERDA -->
                             <div class="columna-izquierda">
                                 <!-- GRUPO CLIENTE 1: María García -->
@@ -349,7 +353,7 @@
         </main>
     </div>
 
-    <script src="../../src/ts/procesamiento/procesamiento.ts" type="module"></script>
+    <script src="../js/procesamiento/procesamiento.js?v=99" type="module"></script>
     <script src="../js/autoreload.js"></script>
 </body>
 
