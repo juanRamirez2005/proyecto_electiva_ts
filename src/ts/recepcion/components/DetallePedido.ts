@@ -30,7 +30,6 @@ export class DetallePedido {
   }
 
   private render() {
-    debugger
     const detalleList = this.root.querySelector(".detalle-list") as HTMLDivElement;
     detalleList.innerHTML = "";
 

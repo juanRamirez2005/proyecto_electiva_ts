@@ -22,7 +22,6 @@ export class DetallePedido {
         this.render();
     }
     render() {
-        debugger;
         const detalleList = this.root.querySelector(".detalle-list");
         detalleList.innerHTML = "";
         this.pedidos.forEach((p, index) => {

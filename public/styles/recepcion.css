@@ -2347,3 +2347,58 @@ button.ghost:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ============================= */
+/* GRID LAYOUT PARA PROCESAMIENTO */
+/* ============================= */
+
+/* Contenedor grid para pedidos (2 por fila) */
+div.cliente-grupo div.pedidos-lista-grid,
+.cliente-grupo .pedidos-lista-grid,
+.pedidos-lista-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+}
+
+/* Nuevo contenedor con clase específica */
+.pedidos-grid-dos-columnas {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+}
+
+/* Wrapper para cada pedido */
+.pedido-card-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.pedido-card-wrapper .pedido-card-large {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ajustar pedido-card-large para layout de grid */
+.pedidos-lista-grid .pedido-card-large,
+.pedidos-lista-grid > .pedido-card-large {
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex: none !important;
+}
+
+/* Responsive: 1 columna en pantallas pequeñas */
+@media (max-width: 1024px) {
+  div.cliente-grupo div.pedidos-lista-grid,
+  .cliente-grupo .pedidos-lista-grid,
+  .pedidos-lista-grid,
+  .pedidos-grid-dos-columnas {
+    grid-template-columns: 1fr !important;
+  }
+}

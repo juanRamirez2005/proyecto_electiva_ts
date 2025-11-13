@@ -1,3 +1,5 @@
+import { renderizarPedidos } from './renderPedido.js';
+
 /**
  * Clase para manejar el procesamiento de pedidos
  * Convierte las funciones JavaScript en métodos de clase TypeScript
@@ -9,6 +11,8 @@ export class ProcesamientoPedidos {
 
     constructor() {
         this.initializeElements();
+        // Renderizar pedidos desde localStorage
+        renderizarPedidos();
     }      
 
     /**
@@ -260,7 +264,11 @@ export class ProcesamientoPedidos {
         const grupos = document.querySelectorAll('.cliente-grupo') as NodeListOf<HTMLElement>;
         
         grupos.forEach(grupo => {
-            const pedidos = Array.from(grupo.querySelectorAll('.pedido-card-large')) as HTMLElement[];
+            // Buscar el grid dentro del grupo
+            const grid = grupo.querySelector('.pedidos-grid-dos-columnas') as HTMLElement;
+            if (!grid) return;
+
+            const pedidos = Array.from(grid.querySelectorAll('.pedido-card-large')) as HTMLElement[];
             
             // Extraer hora de cada pedido
             pedidos.forEach(pedido => {
@@ -278,9 +286,9 @@ export class ProcesamientoPedidos {
                 return horaB.localeCompare(horaA);
             });
             
-            // Reordenar en el DOM
+            // Reordenar en el DOM - agregar al GRID, no al grupo
             pedidos.forEach(pedido => {
-                grupo.appendChild(pedido);
+                grid.appendChild(pedido);
             });
         });
     }
