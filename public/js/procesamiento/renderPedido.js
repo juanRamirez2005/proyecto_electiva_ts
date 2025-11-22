@@ -35,7 +35,7 @@ function agruparPorCliente(pedidos) {
  * Función para crear un elemento de pedido usando DOM
  */
 function crearElementoPedido(pedido) {
-    var _a, _b;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
     const section = document.createElement('section');
     section.className = 'section pedido-card-large pedido-dos-col';
     section.setAttribute('aria-labelledby', `pedido${pedido.key}Title`);
@@ -65,15 +65,15 @@ function crearElementoPedido(pedido) {
     // ZONA 2: Materiales
     const zonaMateriales = document.createElement('div');
     zonaMateriales.className = 'pedido-zona';
-    const extrasHTML = (pedido.extras || []).map(e => `<span class="extra-tag">🎁 ${e}</span>`).join('') || '<span class="extra-tag">Sin extras</span>';
+    const extrasHTML = (((_c = pedido.pedido) === null || _c === void 0 ? void 0 : _c.extras) || []).map((e) => `<span class="extra-tag">🎁 ${e}</span>`).join('') || '<span class="extra-tag">Sin extras</span>';
     zonaMateriales.innerHTML = `
     <h4>📦 Materiales</h4>
     <div class="zona-content">
       <div class="materiales-info">
-        <strong>${pedido.producto || 'Sin producto'}</strong>
-        ${pedido.personalizacion ? `<p>Personalización: "${pedido.personalizacion}"</p>` : ''}
+        <strong>${((_d = pedido.pedido) === null || _d === void 0 ? void 0 : _d.producto) || 'Sin producto'}</strong>
+        ${((_e = pedido.pedido) === null || _e === void 0 ? void 0 : _e.personalizacion) ? `<p>Personalización: "${pedido.pedido.personalizacion}"</p>` : ''}
         <div class="extras-list">${extrasHTML}</div>
-        ${pedido.isSorpresa ? '<p class="sorpresa-badge">🎉 Es sorpresa</p>' : ''}
+        ${((_f = pedido.pedido) === null || _f === void 0 ? void 0 : _f.isSorpresa) ? '<p class="sorpresa-badge">🎉 Es sorpresa</p>' : ''}
       </div>
     </div>
   `;
@@ -106,8 +106,8 @@ function crearElementoPedido(pedido) {
         infoAdicional.innerHTML = `
       <div><strong>📍 Destinatario:</strong> ${pedido.destinatario.nombre} - ${pedido.destinatario.direccion}</div>
       <div><strong>📞 Teléfono destino:</strong> ${pedido.destinatario.telefono}</div>
-      <div><strong>📅 Fecha entrega:</strong> ${pedido.fechaEntrega || 'Sin fecha'}</div>
-      ${pedido.observaciones ? `<div><strong>📝 Observaciones:</strong> ${pedido.observaciones}</div>` : ''}
+      <div><strong>📅 Fecha entrega:</strong> ${((_g = pedido.pedido) === null || _g === void 0 ? void 0 : _g.fechaEntrega) || 'Sin fecha'} - ${((_h = pedido.pedido) === null || _h === void 0 ? void 0 : _h.horaEntrega) || ''}</div>
+      ${((_j = pedido.pedido) === null || _j === void 0 ? void 0 : _j.observacionesDespachador) ? `<div><strong>📝 Observaciones:</strong> ${pedido.pedido.observacionesDespachador}</div>` : ''}
     `;
         section.appendChild(infoAdicional);
     }

@@ -33,6 +33,12 @@ export class Recepcion {
             const { cliente, pedido, destinatario } = this.obtenerDatosFormulario();
             this.calcularTotales(cliente, pedido, destinatario);
         });
+        // Botón Limpiar
+        const btnLimpiar = document.querySelector('button[type="reset"]');
+        btnLimpiar === null || btnLimpiar === void 0 ? void 0 : btnLimpiar.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.limpiarFormularioCompleto();
+        });
         (_b = document.getElementById("btnAgregarPedido")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", (e) => {
             e.preventDefault();
             if (!this.validarCamposPedido())
@@ -52,7 +58,18 @@ export class Recepcion {
                     telefono: document.getElementById("destTelefono").value,
                     direccion: document.getElementById("destDireccion").value
                 },
-                pedido: pedido
+                pedido: {
+                    producto: pedido.producto,
+                    personalizacion: pedido.personalizacion,
+                    extras: pedido.extras,
+                    de: pedido.de,
+                    para: pedido.para,
+                    mensajeTarjeta: pedido.mensajeTarjeta,
+                    fechaEntrega: document.getElementById("fechaEntrega").value,
+                    horaEntrega: document.getElementById("horaEntrega").value,
+                    isSorpresa: pedido.isSorpresa,
+                    observacionesDespachador: pedido.observacionesDespachador
+                }
             }));
             // usar nombre del cliente y destinatario para el detalle
             const cliente = document.getElementById("clienteNombre").value;
@@ -209,7 +226,7 @@ export class Recepcion {
     construirPedido() {
         var _a;
         return new Pedido(document.getElementById("producto").value, document.getElementById("personalizacion").value, [], // aquí puedes mapear extras seleccionados
-        document.getElementById("de").value, document.getElementById("para").value, document.getElementById("tarjeta").value, new Date(document.getElementById("fechaEntrega").value), new Date(document.getElementById("horaEntrega").value), ((_a = (document.querySelector('input[name="sorpresa"]:checked'))) === null || _a === void 0 ? void 0 : _a.value) === "si", document.getElementById("observaciones").value);
+        document.getElementById("de").value, document.getElementById("para").value, document.getElementById("tarjeta").value, document.getElementById("fechaEntrega").value, document.getElementById("horaEntrega").value, ((_a = (document.querySelector('input[name="sorpresa"]:checked'))) === null || _a === void 0 ? void 0 : _a.value) === "si", document.getElementById("observaciones").value);
     }
     limpiarCamposPedido() {
         document.getElementById("producto").value = "";
@@ -223,6 +240,23 @@ export class Recepcion {
         document.getElementById("horaEntrega").value = "";
         document.getElementById("observaciones").value = "";
         document.getElementById("extraQty").textContent = "1";
+    }
+    limpiarFormularioCompleto() {
+        // Limpiar datos del cliente
+        document.getElementById("clienteNombre").value = "";
+        document.getElementById("clienteTelefono").value = "";
+        // Limpiar datos del destinatario
+        document.getElementById("destNombre").value = "";
+        document.getElementById("destTelefono").value = "";
+        document.getElementById("destDireccion").value = "";
+        // Limpiar campos del pedido
+        this.limpiarCamposPedido();
+        // Desmarcar radio buttons de sorpresa
+        const radios = document.querySelectorAll("input[name='sorpresa']");
+        radios.forEach(radio => radio.checked = false);
+        // Resetear errores
+        this.resetErrores();
+        console.log("✅ Formulario limpiado completamente");
     }
     // ---------------- VALIDACIONES ----------------
     setError(input, errorId, mensaje) {

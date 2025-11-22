@@ -35,6 +35,13 @@ export class Recepcion {
       this.calcularTotales(cliente, pedido, destinatario);
     });
 
+    // Botón Limpiar
+    const btnLimpiar = document.querySelector('button[type="reset"]') as HTMLButtonElement | null;
+    btnLimpiar?.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.limpiarFormularioCompleto();
+    });
+
     document.getElementById("btnAgregarPedido")?.addEventListener("click", (e) => {
       e.preventDefault();
       if (!this.validarCamposPedido()) return;
@@ -57,7 +64,18 @@ export class Recepcion {
           telefono: (document.getElementById("destTelefono") as HTMLInputElement).value,
           direccion: (document.getElementById("destDireccion") as HTMLInputElement).value
         },
-        pedido: pedido
+        pedido: {
+          producto: pedido.producto,
+          personalizacion: pedido.personalizacion,
+          extras: pedido.extras,
+          de: pedido.de,
+          para: pedido.para,
+          mensajeTarjeta: pedido.mensajeTarjeta,
+          fechaEntrega: (document.getElementById("fechaEntrega") as HTMLInputElement).value,
+          horaEntrega: (document.getElementById("horaEntrega") as HTMLInputElement).value,
+          isSorpresa: pedido.isSorpresa,
+          observacionesDespachador: pedido.observacionesDespachador
+        }
     }));
 
       // usar nombre del cliente y destinatario para el detalle
@@ -297,8 +315,8 @@ export class Recepcion {
       (document.getElementById("de") as HTMLInputElement).value,
       (document.getElementById("para") as HTMLInputElement).value,
       (document.getElementById("tarjeta") as HTMLTextAreaElement).value,
-      new Date((document.getElementById("fechaEntrega") as HTMLInputElement).value),
-      new Date((document.getElementById("horaEntrega") as HTMLInputElement).value),
+      (document.getElementById("fechaEntrega") as HTMLInputElement).value,
+      (document.getElementById("horaEntrega") as HTMLInputElement).value,
       (document.querySelector<HTMLInputElement>('input[name="sorpresa"]:checked'))?.value === "si",
       (document.getElementById("observaciones") as HTMLTextAreaElement).value
     );
@@ -316,6 +334,29 @@ export class Recepcion {
     (document.getElementById("horaEntrega") as HTMLInputElement).value = "";
     (document.getElementById("observaciones") as HTMLTextAreaElement).value = "";
     (document.getElementById("extraQty") as HTMLElement).textContent = "1";
+  }
+
+  private limpiarFormularioCompleto() {
+    // Limpiar datos del cliente
+    (document.getElementById("clienteNombre") as HTMLInputElement).value = "";
+    (document.getElementById("clienteTelefono") as HTMLInputElement).value = "";
+    
+    // Limpiar datos del destinatario
+    (document.getElementById("destNombre") as HTMLInputElement).value = "";
+    (document.getElementById("destTelefono") as HTMLInputElement).value = "";
+    (document.getElementById("destDireccion") as HTMLInputElement).value = "";
+    
+    // Limpiar campos del pedido
+    this.limpiarCamposPedido();
+    
+    // Desmarcar radio buttons de sorpresa
+    const radios = document.querySelectorAll<HTMLInputElement>("input[name='sorpresa']");
+    radios.forEach(radio => radio.checked = false);
+    
+    // Resetear errores
+    this.resetErrores();
+    
+    console.log("✅ Formulario limpiado completamente");
   }
 
   // ---------------- VALIDACIONES ----------------

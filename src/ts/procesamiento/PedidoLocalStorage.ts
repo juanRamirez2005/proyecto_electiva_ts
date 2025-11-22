@@ -10,15 +10,21 @@ export interface PedidoLocalStorage {
     telefono: string;
     direccion: string;
   };
-  producto?: string;
-  personalizacion?: string;
-  extras?: string[];
-  hora?: string;
-  fechaEntrega?: string;
-  isSorpresa?: boolean;
-  observaciones?: string;
+  pedido?: {
+    producto: string;
+    personalizacion: string;
+    extras: string[];
+    de: string;
+    para: string;
+    mensajeTarjeta: string;
+    fechaEntrega: string;
+    horaEntrega: string;
+    isSorpresa: boolean;
+    observacionesDespachador: string;
+  };
   //TODO: validar estos atributos
   estado?: string;
   precio?: string;
+  hora?: string;
   fecha_creacion?: string;
 }

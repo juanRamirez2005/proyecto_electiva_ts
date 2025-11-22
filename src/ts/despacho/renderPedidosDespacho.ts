@@ -58,7 +58,7 @@ function crearElementoPedido(pedido: PedidoLocalStorage): HTMLElement {
     product.innerHTML = `
         Producto:
         <br>
-        <strong>${pedido.producto || 'Sin producto'}</strong>
+        <strong>${pedido.pedido?.producto || 'Sin producto'}</strong>
     `;
     wrapper.appendChild(product);
 
@@ -90,7 +90,7 @@ function crearElementoPedido(pedido: PedidoLocalStorage): HTMLElement {
     fecha.innerHTML = `
         Fecha Entrega:
         <br>
-        <strong>${pedido.fechaEntrega || 'Sin fecha'}</strong>
+        <strong>${pedido.pedido?.fechaEntrega || 'Sin fecha'} - ${pedido.pedido?.horaEntrega || ''}</strong>
     `;
     wrapper.appendChild(fecha);
 

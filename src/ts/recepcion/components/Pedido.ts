@@ -7,8 +7,8 @@ export class Pedido {
     de: string;
     para: string;
     mensajeTarjeta: string;
-    fechaEntrega: Date;
-    horaEntrega: Date;
+    fechaEntrega: Date | string;
+    horaEntrega: Date | string;
     isSorpresa: boolean;
     observacionesDespachador: string;
 
@@ -19,8 +19,8 @@ export class Pedido {
         de: string,
         para: string,
         mensajeTarjeta: string,
-        fechaEntrega: Date,
-        horaEntrega: Date,
+        fechaEntrega: Date | string,
+        horaEntrega: Date | string,
         isSorpresa: boolean,
         observacionesDespachador: string
     ) {

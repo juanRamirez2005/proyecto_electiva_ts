@@ -1,7 +1,7 @@
 // Función para distancia (Haversine)
-  export function haversine(lat1, lon1, lat2, lon2) {
+  export function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371; // Radio de la Tierra en km
-    const toRad = angle => angle * Math.PI / 180;
+    const toRad = (angle: number): number => angle * Math.PI / 180;
   
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
@@ -22,15 +22,15 @@
   }
   
   // Calcular total de opciones
-  export function calcularTotalOpciones(opciones, seleccionadas) {
-    return opciones.reduce((total, opcion) => {
+  export function calcularTotalOpciones(opciones: any[], seleccionadas: number[]): number {
+    return opciones.reduce((total: number, opcion: any) => {
       return seleccionadas.includes(opcion.opcion) ? total + opcion.precio : total;
     }, 0);
   }
   
   // Calcular total de adicionales
-  export function calcularTotalAdicionales(adicionales, seleccionadas) {
-    return adicionales.reduce((total, adicional) => {
+  export function calcularTotalAdicionales(adicionales: any[], seleccionadas: number[]): number {
+    return adicionales.reduce((total: number, adicional: any) => {
       return seleccionadas.includes(adicional.id) ? total + adicional.precio : total;
     }, 0);
   }
