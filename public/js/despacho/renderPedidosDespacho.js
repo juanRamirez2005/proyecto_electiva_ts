@@ -17,7 +17,7 @@ function obtenerPedidosDesdeLocalStorage() {
     return pedidos;
 }
 function crearElementoPedido(pedido) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     const wrapper = document.createElement('div');
     wrapper.className = 'pedido';
     // Header
@@ -49,7 +49,7 @@ function crearElementoPedido(pedido) {
     product.innerHTML = `
         Producto:
         <br>
-        <strong>${pedido.producto || 'Sin producto'}</strong>
+        <strong>${((_c = pedido.pedido) === null || _c === void 0 ? void 0 : _c.producto) || 'Sin producto'}</strong>
     `;
     wrapper.appendChild(product);
     // Destinatario
@@ -58,9 +58,9 @@ function crearElementoPedido(pedido) {
     destinatario.innerHTML = `
         Destinatario:
         <br>
-        <strong>${((_c = pedido.destinatario) === null || _c === void 0 ? void 0 : _c.nombre) || 'N/A'}</strong>
+        <strong>${((_d = pedido.destinatario) === null || _d === void 0 ? void 0 : _d.nombre) || 'N/A'}</strong>
         <br>
-        <small>${((_d = pedido.destinatario) === null || _d === void 0 ? void 0 : _d.telefono) || 'N/A'}</small>
+        <small>${((_e = pedido.destinatario) === null || _e === void 0 ? void 0 : _e.telefono) || 'N/A'}</small>
     `;
     wrapper.appendChild(destinatario);
     // Dirección
@@ -69,7 +69,7 @@ function crearElementoPedido(pedido) {
     direccion.innerHTML = `
         Dirección de entrega:
         <br>
-        <strong>${((_e = pedido.destinatario) === null || _e === void 0 ? void 0 : _e.direccion) || 'Sin dirección'}</strong>
+        <strong>${((_f = pedido.destinatario) === null || _f === void 0 ? void 0 : _f.direccion) || 'Sin dirección'}</strong>
     `;
     wrapper.appendChild(direccion);
     // Fecha
@@ -78,7 +78,7 @@ function crearElementoPedido(pedido) {
     fecha.innerHTML = `
         Fecha Entrega:
         <br>
-        <strong>${pedido.fechaEntrega || 'Sin fecha'}</strong>
+        <strong>${((_g = pedido.pedido) === null || _g === void 0 ? void 0 : _g.fechaEntrega) || 'Sin fecha'} - ${((_h = pedido.pedido) === null || _h === void 0 ? void 0 : _h.horaEntrega) || ''}</strong>
     `;
     wrapper.appendChild(fecha);
     // Footer

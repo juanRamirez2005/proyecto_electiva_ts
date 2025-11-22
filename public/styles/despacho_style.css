@@ -1,158 +1,248 @@
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f6fa;
-  margin: 20px;
-}
+/* Estilos específicos para Despacho */
 
 .pedidos-container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .pedido {
   background: #fff;
   border-radius: 12px;
-  padding: 20px;
-  width: 280px;
+  padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .pedido-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.pedido-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1e3a8a;
 }
 
 .status {
-  padding: 4px 8px;
+  padding: 0.25rem 0.75rem;
   border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: capitalize;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .pending {
-  background: #eee;
-  color: #555;
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .processing {
-  background: #cce5ff;
-  color: #004085;
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .delivered {
-  background: #d4edda;
-  color: #155724;
+  background: #d1fae5;
+  color: #065f46;
 }
 
-.resumen p {
-  margin: 3px 0;
-  font-size: 14px;
+.pedido p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
 }
 
-.detalles {
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
+.pedido strong {
+  color: #1e3a8a;
+  font-weight: 600;
 }
 
-.oculto {
-  display: none;
+.pedido small {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.nota {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.nota label {
+  display: block;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.nota textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.nota textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .pedido-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
+  padding-top: 0.75rem;
   margin-top: auto;
+  border-top: 1px solid #e5e7eb;
 }
 
 .precio {
-  font-size: 16px;
-  font-weight: bold;
-  color: #007bff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #10b981;
 }
 
 .acciones {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .btn {
-  padding: 8px 12px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex: 1;
+  min-width: 100px;
 }
 
 .btn-eliminar {
-  background: #e74c3c;
-  color: #fff;
+  background: #fca5a5;
+  color: #991b1b;
 }
 
-.btn-toggle {
-  background: transparent;
-  border: none;
-  color: #007bff;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.navigation {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  background: #1e3a8a;
-  padding: 1rem 2rem;
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navigation a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: 0.3s, color 0.3s;
-}
-
-.navigation a:hover {
-  background: #3b82f6;
-  color: #fff;
-}
-
-.btnImprimirTarjetas {
-  background-color: #d97fa3;
-  border: none;
+.btn-eliminar:hover {
+  background: #f87171;
   color: white;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
 }
 
-.btnImprimirTarjetas:hover {
-  background-color: #c76f92;
+.btn-cambiar-estado {
+  background: #93c5fd;
+  color: #1e40af;
+}
+
+.btn-cambiar-estado:hover {
+  background: #60a5fa;
+  color: white;
+}
+
+.btn-ver-tirilla {
+  background: #10b981;
+  color: white;
+}
+
+.btn-ver-tirilla:hover {
+  background: #059669;
+}
+
+.btn-imprimir-tarjetas {
+  background: #8b5cf6;
+  color: white;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.btn-imprimir-tarjetas:hover {
+  background: #7c3aed;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.btn-imprimir-tarjetas:active {
+  transform: translateY(0);
 }
 
 .contenedorTarjetas {
-  display: none; /* solo se muestra al imprimir */
+  display: none;
+}
+
+/* Mensaje de no hay pedidos */
+.no-pedidos {
+  text-align: center;
+  padding: 3rem;
+  background: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.no-pedidos p {
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.no-pedidos a {
+  display: inline-block;
+  background: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.no-pedidos a:hover {
+  background: #2563eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pedidos-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .acciones {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
 }

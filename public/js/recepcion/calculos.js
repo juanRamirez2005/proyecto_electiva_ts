@@ -1,7 +1,7 @@
 // Función para distancia (Haversine)
 export function haversine(lat1, lon1, lat2, lon2) {
     const R = 6371; // Radio de la Tierra en km
-    const toRad = angle => angle * Math.PI / 180;
+    const toRad = (angle) => angle * Math.PI / 180;
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
     const a = Math.pow(Math.sin(dLat / 2), 2) +

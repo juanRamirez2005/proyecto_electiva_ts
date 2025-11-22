@@ -31,6 +31,11 @@
           <a href="./historial.html">Historial</a>
           <a href="./empleados.html">Empleados</a>
         </nav>
+        <div class="breadcrumbs">
+          <a href="./home.html">🏠 Inicio</a>
+          <span class="separator">›</span>
+          <span class="current">Recepción de Pedidos</span>
+        </div>
       </section>
 
       <section class="recepcion-body">
@@ -108,23 +113,22 @@
                 </div>
 
                 <div class="field-row">
-                  <!-- Lista dinámica de extras añadidos -->
-
                   <label>Opciones extras</label>
                   <div class="extras-selector">
                     <select id="extraSelect">
                       <option value="">-- Selecciona un extra --</option>
                     </select>
 
-                    <div class="quantity-control">
-                      <button type="button" class="decrease" id="minusBtn">−</button>
-                      <span id="extraQty">1</span>
-                      <button type="button" class="increase" id="plusBtn">+</button>
+                    <div class="extras-controls">
+                      <div class="quantity-control">
+                        <button type="button" class="decrease" id="minusBtn">−</button>
+                        <span id="extraQty">1</span>
+                        <button type="button" class="increase" id="plusBtn">+</button>
+                      </div>
+
+                      <button type="button" id="addExtraBtn">Agregar</button>
                     </div>
-
-                    <button type="button" id="addExtraBtn">Agregar</button>
                   </div>
-
                 </div>
 
                 <div class="field-row">
@@ -182,11 +186,8 @@
                 </div>
 
                 <div class="actions">
-                  <div style="display: flex; gap: 8px; margin-left: 12px">
-                    <button type="reset" class="danger">Limpiar</button>
-                    <button type="button" class="secundary" id="btnAgregarPedido">Agregar Pedido</button>
-                    <button type="button" class="primary">Enviar Pedido</button>
-                  </div>
+                  <button type="reset" class="danger">Limpiar</button>
+                  <button type="button" class="secundary" id="btnAgregarPedido">Agregar Pedido</button>
                 </div>
               </div>
             </section>
@@ -201,6 +202,7 @@
   </div>
 
   <script src="../js/autoreload.js"></script>
+  <script src="../js/navigation.js"></script>
   <script src="../js/recepcion/app.js" type="module"></script>
 </body>
 

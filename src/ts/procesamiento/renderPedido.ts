@@ -77,15 +77,15 @@ function crearElementoPedido(pedido: PedidoLocalStorage): HTMLElement {
   // ZONA 2: Materiales
   const zonaMateriales = document.createElement('div');
   zonaMateriales.className = 'pedido-zona';
-  const extrasHTML = (pedido.extras || []).map(e => `<span class="extra-tag">🎁 ${e}</span>`).join('') || '<span class="extra-tag">Sin extras</span>';
+  const extrasHTML = (pedido.pedido?.extras || []).map((e: string) => `<span class="extra-tag">🎁 ${e}</span>`).join('') || '<span class="extra-tag">Sin extras</span>';
   zonaMateriales.innerHTML = `
     <h4>📦 Materiales</h4>
     <div class="zona-content">
       <div class="materiales-info">
-        <strong>${pedido.producto || 'Sin producto'}</strong>
-        ${pedido.personalizacion ? `<p>Personalización: "${pedido.personalizacion}"</p>` : ''}
+        <strong>${pedido.pedido?.producto || 'Sin producto'}</strong>
+        ${pedido.pedido?.personalizacion ? `<p>Personalización: "${pedido.pedido.personalizacion}"</p>` : ''}
         <div class="extras-list">${extrasHTML}</div>
-        ${pedido.isSorpresa ? '<p class="sorpresa-badge">🎉 Es sorpresa</p>' : ''}
+        ${pedido.pedido?.isSorpresa ? '<p class="sorpresa-badge">🎉 Es sorpresa</p>' : ''}
       </div>
     </div>
   `;
@@ -121,8 +121,8 @@ function crearElementoPedido(pedido: PedidoLocalStorage): HTMLElement {
     infoAdicional.innerHTML = `
       <div><strong>📍 Destinatario:</strong> ${pedido.destinatario.nombre} - ${pedido.destinatario.direccion}</div>
       <div><strong>📞 Teléfono destino:</strong> ${pedido.destinatario.telefono}</div>
-      <div><strong>📅 Fecha entrega:</strong> ${pedido.fechaEntrega || 'Sin fecha'}</div>
-      ${pedido.observaciones ? `<div><strong>📝 Observaciones:</strong> ${pedido.observaciones}</div>` : ''}
+      <div><strong>📅 Fecha entrega:</strong> ${pedido.pedido?.fechaEntrega || 'Sin fecha'} - ${pedido.pedido?.horaEntrega || ''}</div>
+      ${pedido.pedido?.observacionesDespachador ? `<div><strong>📝 Observaciones:</strong> ${pedido.pedido.observacionesDespachador}</div>` : ''}
     `;
     section.appendChild(infoAdicional);
   }

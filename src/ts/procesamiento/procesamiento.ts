@@ -208,8 +208,45 @@ export class ProcesamientoPedidos {
             this.btnConfirmarElement!.textContent = 'Procesado';
             this.btnConfirmarElement!.style.background = '#6c757d';
             
+            // Limpiar localStorage - eliminar todos los pedidos (ORD)
+            const keysToRemove: string[] = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('ORD')) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            
             // Mostrar mensaje de éxito
             alert('¡Todos los pedidos han sido procesados exitosamente!');
+            
+            // Mostrar mensaje de no hay pedidos
+            const container = document.getElementById('pedidos-container');
+            if (container) {
+                container.innerHTML = `
+                    <div class="no-pedidos" style="text-align: center; padding: 3rem; background: #f9fafb; border: 2px dashed #d1d5db; border-radius: 12px;">
+                        <p style="font-size: 1.2rem; color: #6b7280; margin-bottom: 1rem;">📭 No hay pedidos pendientes para procesar</p>
+                        <a href="./recepcion.html" style="display: inline-block; background: #3b82f6; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                            Ir a Recepción
+                        </a>
+                    </div>
+                `;
+            }
+            
+            // Ocultar botones de acción
+            if (this.btnConfirmarElement) {
+                this.btnConfirmarElement.style.display = 'none';
+            }
+            const btnLimpiar = document.getElementById('btnLimpiarTodo');
+            if (btnLimpiar) {
+                btnLimpiar.style.display = 'none';
+            }
+            
+            // Ocultar resumen
+            if (this.resumenElement) {
+                this.resumenElement.style.display = 'none';
+            }
         }, 2000);
     }
 
